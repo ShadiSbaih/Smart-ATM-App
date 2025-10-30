@@ -1,11 +1,11 @@
-**TECHNICAL_REQUIREMENTS
+Here’s your **final polished and Markdown-ready** version — clean, formatted, and ready to paste directly into your `README.md` file 
 
 ---
 
 ````md
-# 🏦 Smart ATM App — Technical Requirements
+#  Smart ATM App — Technical Requirements
 
-## 📘 1. Overview
+##  1. Overview
 
 The **Smart ATM App** is a React-based banking simulation designed for educational and practical training.  
 It helps students apply real-world web development concepts such as **React Router**, **state management (Zustand)**, **API handling (TanStack Query)**, and **form validation (Formik + Yup)**.  
@@ -14,9 +14,9 @@ The app provides core ATM-like features: login, balance management, deposits, wi
 
 ---
 
-## 🧱 2. Architecture
+##  2. Architecture
 
-### 🔹 Pattern: Container–Presentation Architecture
+###  Pattern: Container–Presentation Architecture
 
 | Layer | Folder | Description |
 |-------|---------|-------------|
@@ -24,7 +24,7 @@ The app provides core ATM-like features: login, balance management, deposits, wi
 | **Presentation Layer** | `/components` | Reusable UI parts that receive props from containers. Includes feature-based UI groups (auth, dashboard, transactions, currency). |
 | **Stores** | `/stores` | Global and feature-scoped state managed via Zustand (auth, watchlist, UI state). |
 | **Services** | `/services` | Handles API calls, mock API setup, and Axios configuration. |
-| **Hooks** | `/hooks` | Custom hooks for business logic (auth, transactions, currency, etc.) that can be reused across pages. |
+| **Hooks** | `/hooks` | Custom hooks for business logic (auth, transactions, currency, etc.) reusable across pages. |
 | **Schemas** | `/schemas` | Yup validation schemas for each form (login, deposit, withdraw). |
 | **Types** | `/types` | TypeScript models for users, transactions, and currencies. |
 | **Utils** | `/utils` | Helper functions, constants, and date utilities. |
@@ -32,28 +32,28 @@ The app provides core ATM-like features: login, balance management, deposits, wi
 
 ---
 
-## 🧰 3. Tech Stack
+##  3. Tech Stack
 
 | Category | Tools |
 |-----------|-------|
 | **Frontend** | React 18 + TypeScript + Vite |
-| **Styling/UI** | Tailwind CSS 3.4.17 + Shadcn UI components |
+| **Styling/UI** | Tailwind CSS 3.4.17 + Shadcn UI |
 | **Forms** | Formik + Yup |
-| **Data fetching** | TanStack Query |
-| **State management** | Zustand |
+| **Data Fetching** | TanStack Query |
+| **State Management** | Zustand |
 | **HTTP Client** | Axios |
 | **Routing** | React Router v6 |
-| **Toast Notifications** | Shadcn / Sonner / Custom hook |
+| **Notifications** | Shadcn / Sonner / Custom hook |
 | **Mock API** | MockAPI.io or static `mockApi.ts` endpoints |
 
 ---
 
-## 🧩 4. Folder Structure
+##  4. Folder Structure
 
 ```txt
 src/
 ├── components/
-│   ├── ui/              # ShadCN reusable UI (Button, Card, Input)
+│   ├── ui/              # Shadcn reusable UI (Button, Card, Input)
 │   ├── layout/          # Shared layouts (Header, Sidebar, ProtectedRoute)
 │   ├── auth/            # LoginForm, LogoutButton
 │   ├── dashboard/       # Widgets: BalanceCard, SummaryBar
@@ -113,83 +113,82 @@ src/
 ### ✅ React & TypeScript
 
 * All files must use `.tsx` with explicit types.
-* No `any` type unless absolutely necessary.
-* Components are function components with arrow syntax.
+* Avoid the `any` type unless absolutely necessary.
+* Use functional components with arrow syntax.
 
 ### ✅ TanStack Query
 
-* Every query must define a **unique `queryKey`**.
-* Mutations must **invalidate relevant queries** after success.
-* Use **optimistic updates** for deposits/withdrawals when appropriate.
+* Each query must define a **unique `queryKey`**.
+* Mutations must **invalidate related queries** after success.
+* Use **optimistic updates** for deposits/withdrawals where suitable.
 
 ### ✅ Zustand
 
-* `authStore` → manages authentication and user info.
-* `watchlistStore` → manages currency list (no persistence).
-* `uiStore` → handles theme, modals, and birthday popup flag.
+* `authStore` → Manages authentication and user info.
+* `watchlistStore` → Handles currency watchlist (no persistence).
+* `uiStore` → Manages theme, modals, and birthday popup flag.
 
 ### ✅ Formik + Yup
 
 * Each form (login, deposit, withdraw) uses Formik + Yup schemas.
-* Forms live under `/components/transactions` or `/components/auth`.
-* Form logic handled in container (page), not in component.
+* Form logic lives in container (`/pages`), not in UI component.
 
 ### ✅ Routing
 
-* Routes configured in `/routes/index.tsx`.
-* Use `<ProtectedRoute>` wrapper for secured routes.
-* A `NotFoundPage` must handle unknown routes.
+* Routes are centralized in `/routes/index.tsx`.
+* Use `<ProtectedRoute>` for secure pages.
+* Include a `NotFoundPage` for unmatched routes.
 
 ### ✅ UI & Theme
 
-* Use Shadcn UI components and Tailwind for design.
-* Support **dark/light mode** toggle in Settings page.
-* Toast notifications appear after every user action (success/error).
+* Use Shadcn UI + Tailwind for consistent design.
+* Support **light/dark mode** toggle in Settings.
+* Show toast notifications for all success/error actions.
 
 ---
 
-## 👥 6. Team Roles & Tasks
+##  6. Team Roles & Tasks
 
-### 👤 **Member 1 — Core Setup & Authentication**
+###  Member 1 — Core Setup & Authentication
 
-**Main Goal:** Build the project base and user authentication system.
+**Goal:** Build project base and login system.
 
 **Tasks:**
 
 * Setup Vite + TypeScript + Tailwind + Shadcn.
-* Create project routing system and providers (TanStack Query, Zustand, Theme).
+* Add routing, providers (TanStack Query, Zustand, Theme).
 * Implement:
 
   * `authStore.ts`
   * `useAuth.ts`
-  * `LoginPage.tsx` (container) + `LoginForm.tsx` (presentation)
-  * Yup validation (`loginSchema.ts`)
-  * Protected route component (`ProtectedRoute.tsx`)
-* Ensure successful login saves user data to Zustand.
+  * `LoginPage.tsx` + `LoginForm.tsx`
+  * `loginSchema.ts`
+  * `ProtectedRoute.tsx`
+* Ensure login saves user data to Zustand.
 
 ---
 
-### 👤 **Member 2 — Dashboard & Balance**
+###  Member 2 — Dashboard & Balance
 
-**Main Goal:** Build the main dashboard view with user details and dynamic balance.
+**Goal:** Create dashboard view with user info and live balance.
 
 **Tasks:**
 
-* Implement `DashboardPage.tsx` container.
-* Create presentation components:
+* Implement `DashboardPage.tsx`.
+* Build:
 
-  * `BalanceCard.tsx` (show live balance)
-  * `SummaryBar.tsx` (total deposits, withdrawals)
+  * `BalanceCard.tsx`
+  * `SummaryBar.tsx`
   * `BirthdayPopup.tsx`
-* Use `useUser.ts` and `dateUtils.ts` for user info + birthday logic.
-* Integrate TanStack Query for fetching user data.
-* Handle birthday popup (appear once per login).
+* Use `useUser.ts` + `dateUtils.ts` for birthday logic.
+* Fetch user data via TanStack Query.
+* Show popup once per login session.
 
 ---
 
-### 👤 **Member 3 — Transactions (Deposit, Withdraw, History)**
+###  Member 3 — Transactions (Deposit, Withdraw, History)
 
-**Main Goal:** Implement deposit/withdraw workflows and transaction tracking.
+**Goal:** Implement full transaction workflow.
 
 **Tasks:**
 
@@ -205,52 +204,51 @@ src/
 * Schemas:
 
   * `depositSchema.ts`, `withdrawSchema.ts`
-* Hooks:
+* Hook:
 
-  * `useTransactions.ts` for all transaction logic.
-* Handle optimistic updates for balance on deposit/withdraw.
-* Add toast success/error messages.
+  * `useTransactions.ts`
+* Support **optimistic balance updates** and toasts.
 
 ---
 
-### 👤 **Member 4 — Watchlist, Settings & 404**
+###  Member 4 — Watchlist, Settings & 404
 
-**Main Goal:** Build currency watchlist and settings page with UI enhancements.
+**Goal:** Manage currencies and app preferences.
 
 **Tasks:**
 
-* `WatchlistPage.tsx` container + components:
+* `WatchlistPage.tsx` with:
 
   * `CurrencyList.tsx`
   * `WatchlistCard.tsx`
-* Zustand store:
+* Store:
 
   * `watchlistStore.ts`
 * `SettingsPage.tsx`:
 
-  * Reset account button (clears user data)
+  * Reset account (clear user data)
   * Theme toggle (dark/light)
 * `NotFoundPage.tsx` with “Go Home” button.
 * Optional:
 
-  * Confetti animation for birthdays.
-  * Toast confirmation for reset actions.
+  * Confetti animation for birthdays
+  * Toast confirmation for resets
 
 ---
 
-## 🔄 7. Git & Collaboration Flow
+##  7. Git & Collaboration Flow
 
 ### 🪴 Branch Structure
 
 | Branch      | Purpose                                     |
 | ----------- | ------------------------------------------- |
-| `main`      | Stable, demo-ready version                  |
+| `main`      | Stable demo-ready version                   |
 | `develop`   | Active development branch                   |
 | `feature/*` | Feature work (e.g., `feature/deposit-form`) |
 | `fix/*`     | Bug fixes                                   |
-| `chore/*`   | Setup, config, documentation                |
+| `chore/*`   | Setup, config, docs                         |
 
-### 🧭 Workflow
+###  Workflow
 
 ```bash
 # Pull latest
@@ -268,11 +266,10 @@ git commit -m "feat(deposit): add DepositPage and DepositForm"
 git push -u origin feature/deposit-form
 ```
 
-Open a **Pull Request** to `develop`.
-After review → merge → deploy to demo.
-At milestone → merge `develop` → `main`.
+Open a **Pull Request** → merge into `develop`.
+After testing → merge `develop` → `main`.
 
-### 🧾 Commit Convention
+###  Commit Convention
 
 | Type        | Meaning            |
 | ----------- | ------------------ |
@@ -280,22 +277,26 @@ At milestone → merge `develop` → `main`.
 | `fix:`      | Bug fix            |
 | `refactor:` | Code restructuring |
 | `docs:`     | Documentation      |
-| `chore:`    | Config, cleanup    |
+| `chore:`    | Config or cleanup  |
 
 ---
 
-## ✅ 8. Completion Checklist
+##  8. Completion Checklist
 
-Before merging a feature PR:
+Before merging any feature PR:
 
-* [ ] Code passes ESLint & Prettier checks.
-* [ ] Component split follows **Container–Presentation** pattern.
-* [ ] API calls handled via **TanStack Query**.
-* [ ] State handled via **Zustand**.
-* [ ] UI tested in both **light/dark** modes.
-* [ ] Toast notifications shown on all actions.
-* [ ] Screenshots attached to PR.
-* [ ] Reviewed and approved by 1 teammate.
+* [ ] ESLint & Prettier checks pass
+* [ ] Component split follows **Container–Presentation** pattern
+* [ ] API handled via **TanStack Query**
+* [ ] State handled via **Zustand**
+* [ ] UI works in **light/dark** modes
+* [ ] Toasts shown on all actions
+* [ ] Screenshots attached to PR
+* [ ] Reviewed & approved by one teammate
 
 ---
 
+```
+
+Would you like me to **add a “Project Setup & Run Guide”** (with installation and start commands) at the end of this `README`? It would make the file more complete for developers.
+```
