@@ -1,44 +1,66 @@
-# Technical Requirements Document
-## Smart ATM App
+**TECHNICAL_REQUIREMENTS
 
 ---
 
-## 📋 Project Overview
+````md
+# 🏦 Smart ATM App — Technical Requirements
 
-A React-based ATM simulation application that demonstrates modern banking operations with a focus on clean architecture, state management, and user experience. Built for a team of 4 developers.
+## 📘 1. Overview
 
----
+The **Smart ATM App** is a React-based banking simulation designed for educational and practical training.  
+It helps students apply real-world web development concepts such as **React Router**, **state management (Zustand)**, **API handling (TanStack Query)**, and **form validation (Formik + Yup)**.  
 
-## 🛠️ Technology Stack
-
-| Category | Technology | Version | Purpose |
-|----------|-----------|---------|---------|
-| **Framework** | React | 18.x | UI development |
-| **Build Tool** | Vite | 5.x | Fast development and bundling |
-| **Language** | TypeScript | 5.x | Type safety and developer experience |
-| **UI Library** | ShadCN/UI | Latest | Pre-built accessible components |
-| **Styling** | Tailwind CSS | 3.4.17 | Utility-first styling |
-| **Routing** | React Router DOM | 6.x | Client-side routing |
-| **State Management** | Zustand | 4.x | Global state management |
-| **Server State** | TanStack Query | 5.x | API data fetching and caching |
-| **Form Management** | Formik | 2.x | Form state and validation |
-| **Validation** | Yup | 1.x | Schema-based validation |
-| **Notifications** | Sonner (via ShadCN) | Latest | Toast notifications |
+The app provides core ATM-like features: login, balance management, deposits, withdrawals, transaction history, watchlist, and settings — all structured using a **Container–Presentation Architecture** with **Feature Modules**.
 
 ---
 
-## 🏗️ Architecture & Project Structure
+## 🧱 2. Architecture
 
-```
+### 🔹 Pattern: Container–Presentation Architecture
+
+| Layer | Folder | Description |
+|-------|---------|-------------|
+| **Container Layer** | `/pages` | Holds the main logic, state management, and API interactions. Each page corresponds to a route (e.g., `DepositPage.tsx`, `DashboardPage.tsx`). |
+| **Presentation Layer** | `/components` | Reusable UI parts that receive props from containers. Includes feature-based UI groups (auth, dashboard, transactions, currency). |
+| **Stores** | `/stores` | Global and feature-scoped state managed via Zustand (auth, watchlist, UI state). |
+| **Services** | `/services` | Handles API calls, mock API setup, and Axios configuration. |
+| **Hooks** | `/hooks` | Custom hooks for business logic (auth, transactions, currency, etc.) that can be reused across pages. |
+| **Schemas** | `/schemas` | Yup validation schemas for each form (login, deposit, withdraw). |
+| **Types** | `/types` | TypeScript models for users, transactions, and currencies. |
+| **Utils** | `/utils` | Helper functions, constants, and date utilities. |
+| **Routes** | `/routes` | Centralized React Router configuration file. |
+
+---
+
+## 🧰 3. Tech Stack
+
+| Category | Tools |
+|-----------|-------|
+| **Frontend** | React 18 + TypeScript + Vite |
+| **Styling/UI** | Tailwind CSS 3.4.17 + Shadcn UI components |
+| **Forms** | Formik + Yup |
+| **Data fetching** | TanStack Query |
+| **State management** | Zustand |
+| **HTTP Client** | Axios |
+| **Routing** | React Router v6 |
+| **Toast Notifications** | Shadcn / Sonner / Custom hook |
+| **Mock API** | MockAPI.io or static `mockApi.ts` endpoints |
+
+---
+
+## 🧩 4. Folder Structure
+
+```txt
 src/
 ├── components/
-│   ├── ui/              # ShadCN components (button, card, input, etc.)
-│   ├── layout/          # Layout components (Header, Sidebar, Footer)
-│   ├── auth/            # Login form, protected route wrapper
-│   ├── dashboard/       # Dashboard widgets and cards
-│   ├── transactions/    # Transaction forms and history
-│   └── currency/        # Currency watchlist components
-├── pages/
+│   ├── ui/              # ShadCN reusable UI (Button, Card, Input)
+│   ├── layout/          # Shared layouts (Header, Sidebar, ProtectedRoute)
+│   ├── auth/            # LoginForm, LogoutButton
+│   ├── dashboard/       # Widgets: BalanceCard, SummaryBar
+│   ├── transactions/    # DepositForm, WithdrawForm, TransactionHistory
+│   └── currency/        # CurrencyList, WatchlistCard
+│
+├── pages/               # Container layer (logic, API, routing)
 │   ├── LoginPage.tsx
 │   ├── DashboardPage.tsx
 │   ├── DepositPage.tsx
@@ -47,1060 +69,233 @@ src/
 │   ├── WatchlistPage.tsx
 │   ├── SettingsPage.tsx
 │   └── NotFoundPage.tsx
+│
 ├── stores/
-│   ├── authStore.ts     # Authentication state (Zustand)
-│   ├── watchlistStore.ts # Currency watchlist state (Zustand)
-│   └── uiStore.ts       # UI state (theme, modals, etc.)
+│   ├── authStore.ts
+│   ├── watchlistStore.ts
+│   └── uiStore.ts
+│
 ├── services/
-│   ├── api.ts           # Axios/fetch configuration
-│   └── mockApi.ts       # Mock API endpoints
+│   ├── api.ts
+│   └── mockApi.ts
+│
 ├── hooks/
-│   ├── useAuth.ts       # Authentication logic
-│   ├── useTransactions.ts # TanStack Query hooks
-│   ├── useUser.ts       # User data fetching
-│   └── useCurrency.ts   # Currency data fetching
+│   ├── useAuth.ts
+│   ├── useTransactions.ts
+│   ├── useUser.ts
+│   ├── useCurrency.ts
+│   └── useToast.ts
+│
 ├── schemas/
-│   ├── loginSchema.ts   # Yup validation for login
-│   ├── depositSchema.ts # Yup validation for deposits
-│   └── withdrawSchema.ts # Yup validation for withdrawals
+│   ├── loginSchema.ts
+│   ├── depositSchema.ts
+│   └── withdrawSchema.ts
+│
 ├── types/
-│   ├── user.ts          # User type definitions
-│   ├── transaction.ts   # Transaction type definitions
-│   └── currency.ts      # Currency type definitions
+│   ├── user.ts
+│   ├── transaction.ts
+│   └── currency.ts
+│
 ├── utils/
-│   ├── constants.ts     # App constants
-│   ├── helpers.ts       # Utility functions
-│   └── dateUtils.ts     # Date formatting and comparison
+│   ├── constants.ts
+│   ├── helpers.ts
+│   └── dateUtils.ts
+│
 ├── routes/
-│   └── index.tsx        # Route configuration
+│   └── index.tsx
 └── App.tsx
-```
+````
 
 ---
 
-## 🎯 Core Technical Requirements
+## ⚙️ 5. Technical Rules
 
-### 1. Authentication & Protected Routes
+### ✅ React & TypeScript
 
-**Responsibilities:** Team Member 1
+* All files must use `.tsx` with explicit types.
+* No `any` type unless absolutely necessary.
+* Components are function components with arrow syntax.
 
-- **Login System**
-  - Use Formik + Yup for form management and validation
-  - Validate username (required, min 3 characters)
-  - Validate PIN (required, exact format matching)
-  - Store auth state in Zustand (`authStore`)
-  - Use TanStack Query to fetch user data from mock API
-  - Handle loading and error states
+### ✅ TanStack Query
 
-- **Protected Routes**
-  - Create `ProtectedRoute` wrapper component
-  - Check authentication status from `authStore`
-  - Redirect to `/` if not authenticated
-  - Redirect to `/dashboard` if authenticated user tries to access login
+* Every query must define a **unique `queryKey`**.
+* Mutations must **invalidate relevant queries** after success.
+* Use **optimistic updates** for deposits/withdrawals when appropriate.
 
-**Technical Implementation:**
-```typescript
-// authStore.ts (Zustand with localStorage persistence)
-import { create } from 'zustand';
-import { persist, createJSONStorage } from 'zustand/middleware';
+### ✅ Zustand
 
-interface AuthState {
-  user: User | null;
-  isAuthenticated: boolean;
-  login: (user: User) => void;
-  logout: () => void;
-}
+* `authStore` → manages authentication and user info.
+* `watchlistStore` → manages currency list (no persistence).
+* `uiStore` → handles theme, modals, and birthday popup flag.
 
-export const useAuthStore = create<AuthState>()(
-  persist(
-    (set) => ({
-      user: null,
-      isAuthenticated: false,
-      login: (user) => set({ user, isAuthenticated: true }),
-      logout: () => set({ user: null, isAuthenticated: false }),
-    }),
-    {
-      name: 'auth-storage', // localStorage key
-      storage: createJSONStorage(() => localStorage),
-    }
-  )
-);
+### ✅ Formik + Yup
 
-// useAuth.ts (TanStack Query)
-const useLogin = () => {
-  const login = useAuthStore((state) => state.login);
-  
-  return useMutation({
-    mutationFn: (credentials: LoginCredentials) => 
-      api.post('/users/verify', credentials),
-    onSuccess: (data) => {
-      login(data);
-      toast.success('Login successful!');
-    },
-    onError: () => {
-      toast.error('Invalid credentials');
-    }
-  });
-};
-```
+* Each form (login, deposit, withdraw) uses Formik + Yup schemas.
+* Forms live under `/components/transactions` or `/components/auth`.
+* Form logic handled in container (page), not in component.
+
+### ✅ Routing
+
+* Routes configured in `/routes/index.tsx`.
+* Use `<ProtectedRoute>` wrapper for secured routes.
+* A `NotFoundPage` must handle unknown routes.
+
+### ✅ UI & Theme
+
+* Use Shadcn UI components and Tailwind for design.
+* Support **dark/light mode** toggle in Settings page.
+* Toast notifications appear after every user action (success/error).
 
 ---
 
-### 2. Dashboard & Balance Management
+## 👥 6. Team Roles & Tasks
 
-**Responsibilities:** Team Member 2
+### 👤 **Member 1 — Core Setup & Authentication**
 
-- **Dashboard Page**
-  - Display user profile (name, avatar)
-  - Show current balance with color coding:
-    - Green: balance > 0
-    - Red: balance === 0
-  - Quick action buttons (Deposit, Withdraw, Transfer)
-  - Summary cards (total deposits, withdrawals, current balance)
+**Main Goal:** Build the project base and user authentication system.
 
-- **Balance Updates**
-  - Use TanStack Query's `useMutation` for transactions
-  - Automatically invalidate and refetch balance after mutations
-  - Optimistic updates for instant UI feedback
+**Tasks:**
 
-- **Birthday Popup**
-  - Check birthday on dashboard mount
-  - Use sessionStorage to track if popup was shown (once per session)
-  - Use ShadCN Dialog component
-  - Optional: Confetti animation (react-confetti library)
+* Setup Vite + TypeScript + Tailwind + Shadcn.
+* Create project routing system and providers (TanStack Query, Zustand, Theme).
+* Implement:
 
-**Technical Implementation:**
-```typescript
-// hooks/useUser.ts
-const useUserData = (userId: number) => {
-  return useQuery({
-    queryKey: ['user', userId],
-    queryFn: () => api.get(`/users/${userId}`),
-    staleTime: 1000 * 60 * 5, // 5 minutes
-  });
-};
-
-// components/BirthdayPopup.tsx
-const BirthdayPopup = ({ user }: { user: User }) => {
-  const [showPopup, setShowPopup] = useState(false);
-  
-  useEffect(() => {
-    const hasShownToday = sessionStorage.getItem('birthday-shown');
-    const isToday = isBirthday(user.birthday);
-    
-    if (isToday && !hasShownToday) {
-      setShowPopup(true);
-      sessionStorage.setItem('birthday-shown', 'true');
-    }
-  }, [user]);
-  
-  return showPopup ? <Dialog>...</Dialog> : null;
-};
-```
+  * `authStore.ts`
+  * `useAuth.ts`
+  * `LoginPage.tsx` (container) + `LoginForm.tsx` (presentation)
+  * Yup validation (`loginSchema.ts`)
+  * Protected route component (`ProtectedRoute.tsx`)
+* Ensure successful login saves user data to Zustand.
 
 ---
 
-### 3. Transactions (Deposit & Withdraw)
+### 👤 **Member 2 — Dashboard & Balance**
 
-**Responsibilities:** Team Member 3
+**Main Goal:** Build the main dashboard view with user details and dynamic balance.
 
-- **Deposit Page**
-  - Formik form with amount input
-  - Yup schema validation:
-    - Required field
-    - Positive number
-    - Maximum 2 decimal places
-  - Currency selector (ILS, USD, EUR, JOD)
-  - Submit using TanStack Query mutation
-  - Toast notification on success/error
+**Tasks:**
 
-- **Withdraw Page**
-  - Similar to deposit with additional validation:
-    - Amount must be ≤ current balance
-  - Real-time balance check
-  - Custom Yup validation for insufficient funds
+* Implement `DashboardPage.tsx` container.
+* Create presentation components:
 
-- **Transaction History Page**
-  - Fetch transactions with TanStack Query
-  - Implement pagination (10 transactions per page)
-  - Filter by transaction type (Deposit, Withdraw, Transfer)
-  - Display in ShadCN Table component
-  - Format dates using date-fns or dayjs
-
-**Technical Implementation:**
-```typescript
-// schemas/depositSchema.ts
-const depositSchema = yup.object({
-  amount: yup
-    .number()
-    .required('Amount is required')
-    .positive('Amount must be positive')
-    .test('decimal', 'Maximum 2 decimal places', 
-      (val) => /^\d+(\.\d{1,2})?$/.test(String(val))
-    ),
-  currency: yup.string().required('Currency is required'),
-});
-
-// hooks/useTransactions.ts
-const useCreateTransaction = () => {
-  const queryClient = useQueryClient();
-  
-  return useMutation({
-    mutationFn: (transaction: NewTransaction) => 
-      api.post('/transactions', transaction),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['user'] });
-      queryClient.invalidateQueries({ queryKey: ['transactions'] });
-      toast.success('Transaction completed successfully!');
-    },
-    onError: (error) => {
-      toast.error('Transaction failed. Please try again.');
-    }
-  });
-};
-```
+  * `BalanceCard.tsx` (show live balance)
+  * `SummaryBar.tsx` (total deposits, withdrawals)
+  * `BirthdayPopup.tsx`
+* Use `useUser.ts` and `dateUtils.ts` for user info + birthday logic.
+* Integrate TanStack Query for fetching user data.
+* Handle birthday popup (appear once per login).
 
 ---
 
-### 4. Currency Watchlist & Settings
+### 👤 **Member 3 — Transactions (Deposit, Withdraw, History)**
 
-**Responsibilities:** Team Member 4
+**Main Goal:** Implement deposit/withdraw workflows and transaction tracking.
 
-- **Currency Watchlist**
-  - Fetch currencies from mock API using TanStack Query
-  - Display all currencies with exchange rates
-  - Star button to add/remove from watchlist
-  - Store watchlist in Zustand (in-memory only)
-  - Separate Watchlist page showing only starred currencies
+**Tasks:**
 
-- **Settings Page**
-  - Dark/Light theme toggle (stored in Zustand)
-  - Reset account functionality:
-    - Confirmation dialog (ShadCN AlertDialog)
-    - DELETE request to mock API
-    - Reset balance to 0
-    - Clear all transactions
-  - User preferences
+* Pages:
 
-- **404 Page**
-  - Custom not found page with friendly message
-  - Navigation back to dashboard
-  - Use react-router-dom's errorElement
+  * `DepositPage.tsx`
+  * `WithdrawPage.tsx`
+  * `HistoryPage.tsx`
+* Components:
 
-**Technical Implementation:**
-```typescript
-// watchlistStore.ts
-interface WatchlistState {
-  currencies: string[]; // ['USD', 'EUR']
-  addCurrency: (code: string) => void;
-  removeCurrency: (code: string) => void;
-  isCurrencyInWatchlist: (code: string) => boolean;
-}
+  * `DepositForm.tsx`, `WithdrawForm.tsx`
+  * `TransactionHistory.tsx` (paginated)
+* Schemas:
 
-// hooks/useCurrency.ts
-const useCurrencies = () => {
-  return useQuery({
-    queryKey: ['currencies'],
-    queryFn: () => api.get('/currencies'),
-    staleTime: 1000 * 60 * 60, // 1 hour
-  });
-};
+  * `depositSchema.ts`, `withdrawSchema.ts`
+* Hooks:
 
-// Reset account
-const useResetAccount = () => {
-  return useMutation({
-    mutationFn: (userId: number) => 
-      api.delete(`/users/${userId}/reset`),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['user'] });
-      toast.success('Account reset successfully');
-    }
-  });
-};
-```
+  * `useTransactions.ts` for all transaction logic.
+* Handle optimistic updates for balance on deposit/withdraw.
+* Add toast success/error messages.
 
 ---
 
-## 🔗 API Integration (Mock API)
+### 👤 **Member 4 — Watchlist, Settings & 404**
 
-### Mock API Setup (MockAPI.io)
+**Main Goal:** Build currency watchlist and settings page with UI enhancements.
 
-**Endpoints Required:**
+**Tasks:**
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/users/:id` | Get user details and balance |
-| POST | `/users/verify` | Verify login credentials |
-| POST | `/transactions` | Create new transaction |
-| GET | `/transactions?userId=:id` | Get user transactions (paginated) |
-| GET | `/currencies` | Get currency exchange rates |
-| DELETE | `/users/:id/reset` | Reset account data |
+* `WatchlistPage.tsx` container + components:
 
-**Error Handling:**
-- API rate limit exceeded → Show error toast
-- Network error → Retry with TanStack Query
-- 404 Not Found → Handle gracefully
-- 401 Unauthorized → Redirect to login
+  * `CurrencyList.tsx`
+  * `WatchlistCard.tsx`
+* Zustand store:
 
-**TanStack Query Configuration:**
-```typescript
-// services/api.ts
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: 2,
-      staleTime: 1000 * 60, // 1 minute
-      refetchOnWindowFocus: false,
-    },
-    mutations: {
-      retry: 1,
-    }
-  }
-});
-```
+  * `watchlistStore.ts`
+* `SettingsPage.tsx`:
+
+  * Reset account button (clears user data)
+  * Theme toggle (dark/light)
+* `NotFoundPage.tsx` with “Go Home” button.
+* Optional:
+
+  * Confetti animation for birthdays.
+  * Toast confirmation for reset actions.
 
 ---
 
-## 🎨 UI/UX Requirements
+## 🔄 7. Git & Collaboration Flow
 
-### ShadCN Components to Use
+### 🪴 Branch Structure
 
-- **Forms:** Input, Label, Button
-- **Feedback:** Toast (Sonner), Alert, AlertDialog
-- **Layout:** Card, Separator
-- **Data Display:** Table, Badge, Avatar
-- **Navigation:** Sheet (mobile menu)
-- **Overlays:** Dialog, Popover
+| Branch      | Purpose                                     |
+| ----------- | ------------------------------------------- |
+| `main`      | Stable, demo-ready version                  |
+| `develop`   | Active development branch                   |
+| `feature/*` | Feature work (e.g., `feature/deposit-form`) |
+| `fix/*`     | Bug fixes                                   |
+| `chore/*`   | Setup, config, documentation                |
 
-### Styling Guidelines
+### 🧭 Workflow
 
-- Use Tailwind CSS utility classes
-- Follow ShadCN's design tokens
-- Responsive design (mobile-first)
-- Dark mode support via CSS variables
-- Consistent spacing (4px base unit)
-
----
-
-## 🧪 Validation Schemas
-
-### Login Schema
-```typescript
-const loginSchema = yup.object({
-  username: yup
-    .string()
-    .required('Username is required')
-    .min(3, 'Username must be at least 3 characters'),
-  pin: yup
-    .string()
-    .required('PIN is required')
-    .matches(/^[A-Z][a-z]\d{4}$/, 'Invalid PIN format'),
-});
-```
-
-### Withdraw Schema
-```typescript
-const withdrawSchema = yup.object({
-  amount: yup
-    .number()
-    .required('Amount is required')
-    .positive('Amount must be positive')
-    .test('sufficient-balance', 'Insufficient balance', 
-      function(value) {
-        const { balance } = this.options.context;
-        return value <= balance;
-      }
-    ),
-});
-```
-
----
-
-## 📱 Routing Configuration
-
-```typescript
-// routes/index.tsx
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <LoginPage />,
-  },
-  {
-    element: <ProtectedRoute />,
-    children: [
-      { path: '/dashboard', element: <DashboardPage /> },
-      { path: '/deposit', element: <DepositPage /> },
-      { path: '/withdraw', element: <WithdrawPage /> },
-      { path: '/history', element: <HistoryPage /> },
-      { path: '/watchlist', element: <WatchlistPage /> },
-      { path: '/settings', element: <SettingsPage /> },
-    ]
-  },
-  {
-    path: '*',
-    element: <NotFoundPage />,
-  }
-]);
-```
-
----
-
-## 🧩 Team Division of Work
-
-### Sprint Planning Overview
-
-**Total Duration:** 3 Sprints (2 weeks)  
-**Sprint Length:** 4-5 days each
-
----
-
-### 👤 Team Member 1: Authentication & Core Infrastructure Lead
-**GitHub Username:** `@member1`  
-**Branch Prefix:** `feat/auth-`
-
-#### Features & Responsibilities:
-1. **Project Setup & Configuration** ⚙️
-   - Initialize Vite + React + TypeScript project
-   - Configure Tailwind CSS and ShadCN/UI
-   - Set up ESLint, Prettier, and Husky
-   - Create `.env.example` and environment configuration
-   - Set up folder structure
-   - **Time:** 3-4 hours
-
-2. **Authentication System** 🔐
-   - Login page with Formik + Yup validation
-   - Auth store (Zustand) with login/logout actions
-   - TanStack Query hook for login mutation (`useLogin`)
-   - Protected route wrapper component
-   - Session management (check if birthday popup shown)
-   - **Time:** 6-8 hours
-
-3. **Routing Infrastructure** 🗺️
-   - React Router DOM configuration
-   - Route protection logic
-   - Navigation guards
-   - 404 Not Found page with redirect
-   - **Time:** 3-4 hours
-
-4. **Mock API Integration** 🔌
-   - Set up MockAPI.io account and endpoints
-   - Create API service layer (`services/api.ts`)
-   - Configure Axios/fetch with base URL
-   - Error interceptors and handling
-   - **Time:** 2-3 hours
-
-**Total Estimated Hours:** 14-19 hours
-
-**Git Branches:**
-- `feat/auth-setup-project`
-- `feat/auth-login-page`
-- `feat/auth-protected-routes`
-- `feat/auth-mock-api-setup`
-
----
-
-### 👤 Team Member 2: Dashboard & Balance Management Lead
-**GitHub Username:** `@member2`  
-**Branch Prefix:** `feat/dashboard-`
-
-#### Features & Responsibilities:
-1. **Dashboard Page** 🏠
-   - User profile section (avatar, name, welcome message)
-   - Balance display with color coding (green/red)
-   - Quick action buttons (Deposit, Withdraw, Transfer)
-   - Summary cards (total deposits, withdrawals, balance)
-   - Responsive layout with ShadCN cards
-   - **Time:** 5-6 hours
-
-2. **Balance Management** 💰
-   - User data fetching with TanStack Query (`useUserData`)
-   - Real-time balance updates after transactions
-   - Optimistic UI updates
-   - Balance color indicator logic
-   - Query invalidation patterns
-   - **Time:** 3-4 hours
-
-3. **Birthday Popup Feature** 🎂
-   - Birthday check utility function
-   - UI store for tracking popup state (Zustand)
-   - Birthday dialog component (ShadCN Dialog)
-   - Session-based popup display (once per login)
-   - Optional: Confetti animation integration
-   - **Time:** 3-4 hours
-
-4. **Layout Components** 🎨
-   - Header with user info and logout button
-   - Sidebar/navigation menu
-   - Footer component
-   - Mobile responsive navigation
-   - **Time:** 3-4 hours
-
-**Total Estimated Hours:** 14-18 hours
-
-**Git Branches:**
-- `feat/dashboard-main-page`
-- `feat/dashboard-balance-display`
-- `feat/dashboard-birthday-popup`
-- `feat/dashboard-layout-components`
-
----
-
-### 👤 Team Member 3: Transactions & History Lead
-**GitHub Username:** `@member3`  
-**Branch Prefix:** `feat/transaction-`
-
-#### Features & Responsibilities:
-1. **Deposit Feature** ➕
-   - Deposit page with form (Formik)
-   - Yup validation schema (positive amount, decimals)
-   - Currency selector component
-   - TanStack Query mutation (`useCreateDeposit`)
-   - Success/error toast notifications
-   - **Time:** 4-5 hours
-
-2. **Withdraw Feature** ➖
-   - Withdraw page with form (Formik)
-   - Advanced Yup validation (balance check)
-   - Real-time balance verification
-   - Insufficient funds error handling
-   - TanStack Query mutation (`useCreateWithdraw`)
-   - Toast notifications
-   - **Time:** 4-5 hours
-
-3. **Transaction History** 📜
-   - History page with transaction list
-   - TanStack Query for fetching transactions (`useTransactions`)
-   - Pagination component (10 items per page)
-   - Filter by transaction type (Deposit, Withdraw, Transfer)
-   - Transaction card/table component
-   - Date formatting (date-fns)
-   - **Time:** 5-6 hours
-
-4. **Validation Schemas** ✅
-   - Create all Yup schemas (`schemas/` folder)
-   - Custom validation rules
-   - Error message customization
-   - Reusable validation utilities
-   - **Time:** 2-3 hours
-
-**Total Estimated Hours:** 15-19 hours
-
-**Git Branches:**
-- `feat/transaction-deposit`
-- `feat/transaction-withdraw`
-- `feat/transaction-history`
-- `feat/transaction-validation-schemas`
-
----
-
-### 👤 Team Member 4: Watchlist, Settings & UX Lead
-**GitHub Username:** `@member4`  
-**Branch Prefix:** `feat/settings-`
-
-#### Features & Responsibilities:
-1. **Currency Watchlist** 💹
-   - Currency list page (all currencies with rates)
-   - TanStack Query hook (`useCurrencies`)
-   - Star button component for add/remove
-   - Watchlist store (Zustand) - in-memory only
-   - Watchlist page (filtered view of starred currencies)
-   - Currency card component
-   - **Time:** 5-6 hours
-
-2. **Settings & Reset Feature** ⚙️
-   - Settings page layout
-   - Account reset functionality
-   - Confirmation dialog (ShadCN AlertDialog)
-   - TanStack Query mutation (`useResetAccount`)
-   - User preferences UI
-   - **Time:** 3-4 hours
-
-3. **Theme System** 🌓
-   - Dark/Light mode toggle
-   - UI store for theme state (Zustand)
-   - Tailwind dark mode configuration
-   - Persistent theme switching
-   - Theme provider component
-   - **Time:** 3-4 hours
-
-4. **Toast Notification System** 🔔
-   - Configure Sonner toast provider
-   - Create toast utility helpers
-   - Toast component customization
-   - Success/error/info toast variants
-   - **Time:** 2-3 hours
-
-5. **Error Handling & Loading States** ⚠️
-   - Error boundary component
-   - Loading skeleton components
-   - Empty state components
-   - API error handling utilities
-   - **Time:** 2-3 hours
-
-**Total Estimated Hours:** 15-20 hours
-
-**Git Branches:**
-- `feat/settings-watchlist`
-- `feat/settings-reset-account`
-- `feat/settings-theme-toggle`
-- `feat/settings-toast-system`
-- `feat/settings-error-handling`
-
----
-
-## 🔄 Git & GitHub Workflow
-
-### Repository Structure
-
-```
-smart-atm-app/
-├── .github/
-│   ├── workflows/
-│   │   ├── ci.yml              # CI pipeline
-│   │   └── pr-checks.yml       # PR validation
-│   └── pull_request_template.md
-├── .husky/
-│   ├── pre-commit              # Run linter before commit
-│   └── pre-push                # Run tests before push
-└── [source code]
-```
-
----
-
-### Branch Strategy
-
-**Main Branches:**
-- `main` - Production-ready code (protected)
-- `develop` - Integration branch for features (protected)
-
-**Feature Branches:**
-- `feat/[prefix]-[feature-name]` - New features
-- `fix/[prefix]-[bug-name]` - Bug fixes
-- `refactor/[prefix]-[description]` - Code refactoring
-- `docs/[description]` - Documentation updates
-
-**Examples:**
 ```bash
-feat/auth-login-page
-feat/dashboard-balance-display
-feat/transaction-deposit
-feat/settings-watchlist
-fix/auth-validation-error
-refactor/dashboard-components
-```
+# Pull latest
+git checkout develop
+git pull origin develop
 
----
+# Create new feature
+git checkout -b feature/deposit-form
 
-### Workflow Process
-
-#### Phase 1: Setup (Day 1)
-**Lead:** Team Member 1
-
-1. **Repository Initialization**
-```bash
-# Member 1 creates repository and base setup
-git checkout -b feat/auth-setup-project
-# Complete project setup
+# Commit work
 git add .
-git commit -m "feat: initial project setup with Vite, TypeScript, and Tailwind"
-git push origin feat/auth-setup-project
-# Create PR to develop
+git commit -m "feat(deposit): add DepositPage and DepositForm"
+
+# Push branch
+git push -u origin feature/deposit-form
 ```
 
-2. **Team Clones and Syncs**
-```bash
-# All members
-git clone [repository-url]
-cd smart-atm-app
-git checkout develop
-git pull origin develop
-```
+Open a **Pull Request** to `develop`.
+After review → merge → deploy to demo.
+At milestone → merge `develop` → `main`.
+
+### 🧾 Commit Convention
+
+| Type        | Meaning            |
+| ----------- | ------------------ |
+| `feat:`     | New feature        |
+| `fix:`      | Bug fix            |
+| `refactor:` | Code restructuring |
+| `docs:`     | Documentation      |
+| `chore:`    | Config, cleanup    |
 
 ---
 
-#### Phase 2: Sprint 1 - Core Features (Days 2-5)
+## ✅ 8. Completion Checklist
 
-**Daily Workflow for Each Team Member:**
+Before merging a feature PR:
 
-1. **Start New Feature**
-```bash
-# Sync with latest develop
-git checkout develop
-git pull origin develop
-
-# Create feature branch
-git checkout -b feat/[prefix]-[feature-name]
-```
-
-2. **Development**
-```bash
-# Make changes and commit regularly
-git add .
-git commit -m "feat: add login form with validation"
-
-# Push to remote
-git push origin feat/[prefix]-[feature-name]
-```
-
-3. **Create Pull Request**
-- Go to GitHub repository
-- Click "New Pull Request"
-- Base: `develop` ← Compare: `feat/[prefix]-[feature-name]`
-- Fill in PR template:
-
-```markdown
-## Description
-Brief description of changes
-
-## Type of Change
-- [ ] New feature
-- [ ] Bug fix
-- [ ] Refactoring
-- [ ] Documentation
-
-## Features Implemented
-- Feature 1
-- Feature 2
-
-## Screenshots (if applicable)
-[Add screenshots]
-
-## Checklist
-- [ ] Code follows project style guidelines
-- [ ] Self-review completed
-- [ ] Comments added for complex logic
-- [ ] No console.log statements
-- [ ] TypeScript types are properly defined
-- [ ] Tested on Chrome and Firefox
-- [ ] Responsive design verified
-
-## Related Issues
-Closes #[issue-number]
-```
-
-4. **Code Review Process**
-- **Assign reviewers:** Minimum 2 team members
-- **Review guidelines:**
-  - Check code quality and TypeScript types
-  - Verify component structure
-  - Test functionality locally
-  - Check for console errors
-  - Verify mobile responsiveness
-
-5. **Approval & Merge**
-```bash
-# After approval, reviewer merges to develop
-# Merge strategy: "Squash and merge" preferred
-
-# All members sync after merge
-git checkout develop
-git pull origin develop
-```
+* [ ] Code passes ESLint & Prettier checks.
+* [ ] Component split follows **Container–Presentation** pattern.
+* [ ] API calls handled via **TanStack Query**.
+* [ ] State handled via **Zustand**.
+* [ ] UI tested in both **light/dark** modes.
+* [ ] Toast notifications shown on all actions.
+* [ ] Screenshots attached to PR.
+* [ ] Reviewed and approved by 1 teammate.
 
 ---
 
-#### Phase 3: Sprint 2 - Integration (Days 6-9)
-
-**Integration Tasks:**
-- Member 1: Integrate auth with dashboard
-- Member 2: Connect balance with transactions
-- Member 3: Link transactions with history
-- Member 4: Connect watchlist with settings
-
-**Integration Branch Naming:**
-```bash
-integrate/auth-dashboard
-integrate/transactions-history
-integrate/watchlist-settings
-```
-
----
-
-#### Phase 4: Sprint 3 - Testing & Polish (Days 10-14)
-
-**Final Tasks:**
-1. **Bug Fixes** (All members)
-2. **E2E Testing** (Member 3 & 4)
-3. **UI Polish** (Member 2 & 4)
-4. **Documentation** (Member 1)
-5. **Deployment Prep** (Member 1)
-
-**Testing Branch:**
-```bash
-git checkout -b test/final-integration
-# Test all features together
-# Fix any bugs found
-```
-
----
-
-### Commit Message Convention
-
-Follow [Conventional Commits](https://www.conventionalcommits.org/):
-
-```bash
-# Format
-<type>(<scope>): <subject>
-
-# Types
-feat:      New feature
-fix:       Bug fix
-refactor:  Code refactoring
-style:     Formatting changes
-docs:      Documentation
-test:      Adding tests
-chore:     Build process or auxiliary tools
-
-# Examples
-feat(auth): add login form with validation
-fix(dashboard): correct balance color logic
-refactor(transaction): simplify deposit form
-docs(readme): add installation instructions
-```
-
----
-
-### Pull Request Guidelines
-
-**PR Size:** Keep PRs small (< 400 lines changed)
-
-**PR Review Checklist:**
-- [ ] Code compiles without errors
-- [ ] No TypeScript errors
-- [ ] No `any` types used
-- [ ] All components are properly typed
-- [ ] No hardcoded values (use constants)
-- [ ] Error handling is implemented
-- [ ] Loading states are handled
-- [ ] Mobile responsive
-- [ ] Accessible (ARIA labels, keyboard navigation)
-- [ ] No console.log statements
-- [ ] Comments added for complex logic
-
-**Review Response Time:** Maximum 24 hours
-
----
-
-### Conflict Resolution
-
-**When conflicts occur:**
-
-```bash
-# 1. Sync with develop
-git checkout develop
-git pull origin develop
-
-# 2. Rebase your branch
-git checkout feat/your-branch
-git rebase develop
-
-# 3. Resolve conflicts
-# Edit conflicting files
-git add .
-git rebase --continue
-
-# 4. Force push (only to your feature branch!)
-git push --force origin feat/your-branch
-```
-
----
-
-### Daily Standup (Async via GitHub)
-
-**Each morning, post in GitHub Discussions:**
-
-```markdown
-## Daily Update - [Date]
-**Team Member:** [Name]
-
-### Yesterday
-- Completed: [tasks]
-- Merged PRs: #[PR numbers]
-
-### Today
-- Working on: [tasks]
-- Expected PRs: [feature names]
-
-### Blockers
-- [Any issues or dependencies]
-```
-
----
-
-### Sprint Board (GitHub Projects)
-
-**Columns:**
-1. **Backlog** - All features to be built
-2. **To Do** - Sprint tasks
-3. **In Progress** - Currently working
-4. **Review** - Pull requests under review
-5. **Testing** - Merged to develop, testing needed
-6. **Done** - Completed and tested
-
-**Move cards as you progress!**
-
----
-
-### CI/CD Pipeline (Optional but Recommended)
-
-**`.github/workflows/ci.yml`**
-```yaml
-name: CI
-
-on:
-  pull_request:
-    branches: [develop, main]
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-      - run: npm ci
-      - run: npm run lint
-      - run: npm run type-check
-      - run: npm run build
-```
-
----
-
-## 📋 Sprint Timeline
-
-| Sprint | Duration | Focus | Deliverables |
-|--------|----------|-------|--------------|
-| **Sprint 0** | Day 1 | Setup | Project initialized, all members have access |
-| **Sprint 1** | Days 2-5 | Core Features | Login, Dashboard, Deposit/Withdraw, Watchlist basics |
-| **Sprint 2** | Days 6-9 | Integration | All features connected, data flow working |
-| **Sprint 3** | Days 10-14 | Polish & Testing | Bug fixes, UI improvements, documentation |
-
----
-
-## 🎯 Success Metrics
-
-- [ ] All PRs reviewed within 24 hours
-- [ ] Zero `console.log` in production code
-- [ ] 100% TypeScript coverage (no `any`)
-- [ ] All features tested on mobile
-- [ ] Zero merge conflicts in main
-- [ ] All team members contribute equally
-- [ ] Documentation is complete
-
----
-
-## ✅ Acceptance Criteria
-
-### Functionality
-- [ ] User can log in with valid credentials
-- [ ] User is redirected to dashboard after login
-- [ ] Balance updates correctly after transactions
-- [ ] Deposit form validates and submits successfully
-- [ ] Withdraw form checks balance before allowing withdrawal
-- [ ] Transaction history displays all transactions with pagination
-- [ ] Currency watchlist adds/removes currencies correctly
-- [ ] Birthday popup appears once per session on user's birthday
-- [ ] Account reset clears balance and transactions
-- [ ] 404 page displays for invalid routes
-- [ ] Toast notifications appear for all actions
-
-### Technical
-- [ ] All forms use Formik + Yup
-- [ ] All API calls use TanStack Query
-- [ ] Global state managed with Zustand
-- [ ] Routing implemented with React Router DOM
-- [ ] UI built with ShadCN + Tailwind CSS
-- [ ] TypeScript used throughout (no `any` types)
-- [ ] Error boundaries implemented
-- [ ] Loading states handled gracefully
-- [ ] Mock API errors handled appropriately
-
-### UI/UX
-- [ ] Responsive design (mobile, tablet, desktop)
-- [ ] Dark/Light mode toggle works correctly
-- [ ] Animations and transitions are smooth
-- [ ] Forms have proper validation messages
-- [ ] All interactive elements have hover states
-- [ ] Accessibility standards met (ARIA labels, keyboard navigation)
-
----
-
-## 🚀 Getting Started
-
-### Prerequisites
-```bash
-Node.js >= 18.x
-npm >= 9.x or yarn >= 1.22.x
-```
-
-### Installation
-```bash
-# Clone repository
-git clone [repository-url]
-
-# Install dependencies
-npm install
-
-# Set up environment variables
-cp .env.example .env
-
-# Start development server
-npm run dev
-```
-
-### Environment Variables
-```env
-VITE_API_BASE_URL=https://[your-mockapi-id].mockapi.io/api/v1
-VITE_APP_NAME=Smart ATM App
-```
-
----
-
-## 📚 Additional Resources
-
-- [ShadCN/UI Documentation](https://ui.shadcn.com/)
-- [TanStack Query Documentation](https://tanstack.com/query/latest)
-- [Formik Documentation](https://formik.org/)
-- [Yup Documentation](https://github.com/jquense/yup)
-- [Zustand Documentation](https://docs.pmnd.rs/zustand)
-- [React Router Documentation](https://reactrouter.com/)
-- [MockAPI.io Documentation](https://mockapi.io/docs)
-
----
-
-## 🐛 Common Issues & Solutions
-
-### Mock API Rate Limiting
-**Problem:** Exceeded API request limit  
-**Solution:** Implement proper caching with TanStack Query, increase `staleTime`
-
-### Form Validation Not Working
-**Problem:** Yup schema not validating  
-**Solution:** Ensure schema is properly connected to Formik's `validationSchema` prop
-
-### State Not Persisting
-**Problem:** Watchlist resets on page refresh  
-**Solution:** This is expected behavior (in-memory only). Document clearly for users.
-
-### Protected Routes Not Working
-**Problem:** Can access dashboard without login  
-**Solution:** Check that `authStore` is properly initialized and `ProtectedRoute` checks authentication
-
----
-
-## 📝 Notes
-
-- **Authentication Storage:** User authentication is persisted in localStorage using Zustand's persist middleware for better UX (survives page refresh)
-- **Birthday Popup:** Uses sessionStorage to show popup once per browser session
-- **Watchlist Storage:** In-memory only (Zustand store without persistence) - resets on page refresh as per requirements
-- **Mock API Limitations:** Be aware of MockAPI.io's free tier limits
-- **TypeScript:** Maintain strict type safety throughout the project
-- **Code Quality:** Follow ESLint and Prettier configurations
-- **Git Workflow:** Use feature branches and pull requests for all changes
-
----
-
-**Document Version:** 1.0  
-**Last Updated:** October 30, 2025  
-**Prepared for:** 4-Member Development Team
