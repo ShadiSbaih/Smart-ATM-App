@@ -85,6 +85,7 @@ src/
 │   ├── useUser.ts
 │   ├── useCurrency.ts
 │   └── useToast.ts
+│   ├── useTheme.ts
 │
 ├── schemas/
 │   ├── loginSchema.ts
@@ -92,9 +93,9 @@ src/
 │   └── withdrawSchema.ts
 │
 ├── types/
-│   ├── user.ts
-│   ├── transaction.ts
-│   └── currency.ts
+│   ├── index.ts
+│   
+│   
 │
 ├── utils/
 │   ├── constants.ts
