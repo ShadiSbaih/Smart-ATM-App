@@ -1,19 +1,23 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Toaster } from 'sonner';
-import './App.css';
-
+import InputDemo from './components/Demos/Input.demo';
+import { ThemeProvider } from './components/theme-provider';
+import { ThemeToggle } from './components/ui/theme-toggle';
 const queryClient = new QueryClient();
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Router>
-        <div className="App">
-          <h1>Smart ATM App</h1>
-        </div>
-        <Toaster />
-      </Router>
+      <ThemeProvider defaultTheme="light" storageKey="smart-atm-theme">
+        <Router>
+          <div className="flex justify-end p-4">
+            <ThemeToggle />
+          </div>
+          <InputDemo />
+          <Toaster />
+        </Router>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }
