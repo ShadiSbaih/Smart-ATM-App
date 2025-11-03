@@ -1,9 +1,9 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'sonner';
-import InputDemo from './components/Demos/Input.demo';
 import { ThemeProvider } from './components/theme-provider';
 import { ThemeToggle } from './components/ui/theme-toggle';
+import LoginPage from './pages/LoginPage';
 const queryClient = new QueryClient();
 
 function App() {
@@ -14,7 +14,11 @@ function App() {
           <div className="flex justify-end p-4">
             <ThemeToggle />
           </div>
-          <InputDemo />
+          <Routes>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/" element={<LoginPage />} />
+            {}
+          </Routes>
           <Toaster />
         </Router>
       </ThemeProvider>
