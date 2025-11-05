@@ -1,25 +1,6 @@
+import type { Transaction, User } from '@/types'
+
 // mockapi.io endpoint
-export type Transaction = {
-  id: number
-  type: string
-  amount: number
-  currency: string
-  date: string
-  target_user?: string
-}
-
-export type User = {
-  id: number
-  user_name: string
-  first_name: string
-  last_name: string
-  profile_img?: string
-  pin?: string
-  balance: number
-  birthday?: string
-  transactions?: Transaction[]
-}
-
 const REMOTE_API = 'https://690afbb71a446bb9cc24b53a.mockapi.io/api/atm/users'
 
 const LOCAL_USERS: User[] = [

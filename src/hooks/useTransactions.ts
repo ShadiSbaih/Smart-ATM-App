@@ -1,15 +1,8 @@
 import { useState } from 'react'
 import useAuthStore from '@/stores/authStore'
-import type { Transaction } from '@/services/mockApi'
+import type { Transaction, TransactionInput } from '@/types'
 import { addTransaction as addTransactionAPI } from '@/services/mockApi'
 import { toast } from 'sonner'
-
-export interface TransactionInput {
-	type: 'Deposit' | 'Withdraw' | 'Transfer'
-	amount: number
-	currency?: string
-	target_user?: string
-}
 
 export const useTransactions = () => {
 	const [isLoading, setIsLoading] = useState(false)

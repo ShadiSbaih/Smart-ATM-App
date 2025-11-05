@@ -1,15 +1,14 @@
 import { useState } from 'react'
+import type { CurrencyCode } from '@/types'
 
-export type Currency = 'ILS' | 'USD' | 'EUR' | 'GBP'
-
-const CURRENCY_SYMBOLS: Record<Currency, string> = {
+const CURRENCY_SYMBOLS: Record<CurrencyCode, string> = {
   ILS: '₪',
   USD: '$',
   EUR: '€',
   GBP: '£',
 }
 
-const CURRENCY_NAMES: Record<Currency, string> = {
+const CURRENCY_NAMES: Record<CurrencyCode, string> = {
   ILS: 'Israeli Shekel',
   USD: 'US Dollar',
   EUR: 'Euro',
@@ -20,7 +19,7 @@ const CURRENCY_NAMES: Record<Currency, string> = {
  * Hook to manage currency display and conversion
  */
 export function useCurrency() {
-  const [currency, setCurrency] = useState<Currency>('ILS')
+  const [currency, setCurrency] = useState<CurrencyCode>('ILS')
 
   const formatAmount = (amount: number): string => {
     const symbol = CURRENCY_SYMBOLS[currency]

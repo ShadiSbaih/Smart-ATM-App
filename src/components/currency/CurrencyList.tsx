@@ -1,12 +1,9 @@
 import { Star } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { useWatchlistStore, type Currency } from '@/stores/watchlistStore'
+import { useWatchlistStore } from '@/stores/watchlistStore'
 import { toast } from 'sonner'
-
-type CurrencyListProps = {
-	currencies: Currency[]
-}
+import type { CurrencyListProps, Currency } from '@/types'
 
 export const CurrencyList = ({ currencies }: CurrencyListProps) => {
 	const { addToWatchlist, removeFromWatchlist, isInWatchlist } = useWatchlistStore()

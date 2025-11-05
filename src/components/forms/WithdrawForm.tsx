@@ -17,11 +17,7 @@ import { useTransactions } from '@/hooks/useTransactions'
 import useAuthStore from '@/stores/authStore'
 import { ArrowUpCircle } from 'lucide-react'
 import { toast } from 'sonner'
-
-interface WithdrawFormProps {
-	open: boolean
-	onOpenChange: (open: boolean) => void
-}
+import type { WithdrawFormProps } from '@/types'
 
 export default function WithdrawForm({
 	open,

@@ -2,11 +2,9 @@ import * as React from "react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { User, Key } from "lucide-react"
-const visaImg = new URL('../assets/visa.png', import.meta.url).href
+import type { LoginFormProps } from "@/types"
 
-export interface LoginFormProps {
-  onSubmit?: (data: { username: string; pin: string }) => void
-}
+const visaImg = new URL('../assets/visa.png', import.meta.url).href
 
 export default function LoginForm({ onSubmit }: LoginFormProps) {
   const [username, setUsername] = React.useState("")
