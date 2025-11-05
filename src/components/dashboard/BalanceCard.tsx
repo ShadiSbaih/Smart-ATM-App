@@ -1,8 +1,5 @@
 import { Wallet } from 'lucide-react'
-
-interface BalanceCardProps {
-  balance: number
-}
+import type { BalanceCardProps } from '@/types'
 
 export default function BalanceCard({ balance }: BalanceCardProps) {
   const iconColor = balance <= 0 ? 'text-red-600' : 'text-green-600'

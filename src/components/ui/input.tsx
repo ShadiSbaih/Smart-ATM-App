@@ -1,14 +1,7 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 import { Eye, EyeOff } from "lucide-react"
-
-export interface InputProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size"> {
-  leftIcon?: React.ReactNode
-  rightIcon?: React.ReactNode
-  togglePassword?: boolean
-  onClickAction?: () => void // 👈 الإضافة الجديدة
-}
+import type { InputProps } from "@/types"
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (

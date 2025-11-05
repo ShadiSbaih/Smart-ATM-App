@@ -1,7 +1,8 @@
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
-import { cva, type VariantProps } from "class-variance-authority"
+import { cva } from "class-variance-authority"
 import { cn } from "@/lib/utils"
+import type { ButtonProps } from "@/types"
 
 const LoaderIcon = () => (
   <span className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-current border-r-transparent" />
@@ -34,15 +35,6 @@ const buttonVariants = cva(
     },
   }
 )
-
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
-  asChild?: boolean
-  icon?: React.ReactNode
-  iconPosition?: "left" | "right"
-  isLoading?: boolean
-}
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (

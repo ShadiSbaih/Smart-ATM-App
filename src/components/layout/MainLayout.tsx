@@ -1,10 +1,6 @@
-import type { ReactNode } from 'react'
+import type { MainLayoutProps } from '@/types'
 import Sidebar from './Sidebar'
 import Header from './Header'
-
-type MainLayoutProps = {
-	children: ReactNode
-}
 
 export const MainLayout = ({ children }: MainLayoutProps) => {
 	return (

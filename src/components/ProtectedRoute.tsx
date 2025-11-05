@@ -1,11 +1,6 @@
 import { Navigate } from 'react-router-dom'
 import useAuthStore from '@/stores/authStore'
-
-import * as React from 'react'
-
-type ProtectedRouteProps = {
-  children: React.ReactNode
-}
+import type { ProtectedRouteProps } from '@/types'
 
 export default function ProtectedRoute({ children }: ProtectedRouteProps) {
   const user = useAuthStore((s) => s.user)

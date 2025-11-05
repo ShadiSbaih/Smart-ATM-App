@@ -1,10 +1,6 @@
 import { Card, CardContent } from '@/components/ui/card'
 import { ArrowUpCircle, ArrowDownCircle, Clock, Calendar } from 'lucide-react'
-import type { User } from '@/services/mockApi'
-
-interface SummaryBarProps {
-  user: User | null
-}
+import type { SummaryBarProps } from '@/types'
 
 export default function SummaryBar({ user }: SummaryBarProps) {
   const totalTransactions = user?.transactions?.length || 0

@@ -13,11 +13,7 @@ import { depositSchema, type DepositFormValues } from '@/schemas/depositSchema'
 import { useTransactions } from '@/hooks/useTransactions'
 import useAuthStore from '@/stores/authStore'
 import { ArrowDownCircle } from 'lucide-react'
-
-interface DepositFormProps {
-	open: boolean
-	onOpenChange: (open: boolean) => void
-}
+import type { DepositFormProps } from '@/types'
 
 export default function DepositForm({ open, onOpenChange }: DepositFormProps) {
 	const { deposit, isLoading } = useTransactions()

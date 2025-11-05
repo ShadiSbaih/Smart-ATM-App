@@ -1,9 +1,5 @@
 import { create } from 'zustand'
-
-export type Currency = {
-	code: string
-	rate: number
-}
+import type { Currency } from '@/types'
 
 type WatchlistState = {
 	watchlist: Currency[]
