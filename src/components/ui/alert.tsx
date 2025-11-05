@@ -1,9 +1,5 @@
 import { AlertCircle } from 'lucide-react'
-
-export type AlertProps = {
-  title?: string
-  description?: string
-}
+import type { AlertProps } from '@/types'
 
 export default function Alert({ title, description }: AlertProps) {
   return (

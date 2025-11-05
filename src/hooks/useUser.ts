@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import useAuthStore from '@/stores/authStore'
 import { findUserByUsername } from '@/services/mockApi'
-import type { User } from '@/services/mockApi'
+import type { User } from '@/types'
 
 /**
  * Hook to fetch and manage user data

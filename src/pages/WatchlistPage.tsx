@@ -4,7 +4,7 @@ import { CurrencyList } from '@/components/currency/CurrencyList'
 import { WatchlistCard } from '@/components/currency/WatchlistCard'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import type { Currency } from '@/stores/watchlistStore'
+import type { Currency } from '@/types'
 
 // Mock currency data as specified in requirements
 const MOCK_CURRENCIES: Currency[] = [

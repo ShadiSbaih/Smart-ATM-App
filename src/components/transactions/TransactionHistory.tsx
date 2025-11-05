@@ -1,12 +1,8 @@
 import { useState } from 'react'
 import { ArrowDownCircle, ArrowUpCircle, ArrowRightLeft } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import type { Transaction } from '@/services/mockApi'
-
-interface TransactionHistoryProps {
-	transactions: Transaction[]
-	itemsPerPage?: number
-}
+import type { Transaction, TransactionHistoryProps } from '@/types'
+import { formatTransactionDate, getTransactionBgClass, getTransactionAmountColor } from '@/utils/transactionUtils'
 
 export default function TransactionHistory({
 	transactions,
@@ -19,17 +15,6 @@ export default function TransactionHistory({
 	const endIndex = startIndex + itemsPerPage
 	const currentTransactions = transactions.slice(startIndex, endIndex)
 
-	const formatDate = (dateString: string) => {
-		const date = new Date(dateString)
-		return date.toLocaleDateString('en-US', {
-			year: 'numeric',
-			month: 'short',
-			day: 'numeric',
-			hour: '2-digit',
-			minute: '2-digit',
-		})
-	}
-
 	const getTransactionIcon = (type: string) => {
 		switch (type) {
 			case 'Deposit':
@@ -40,31 +25,6 @@ export default function TransactionHistory({
 				return <ArrowRightLeft className="h-6 w-6 text-orange-600" />
 			default:
 				return <ArrowRightLeft className="h-6 w-6 text-gray-600" />
-		}
-	}
-
-	const getTransactionBg = (type: string) => {
-		switch (type) {
-			case 'Deposit':
-				return 'bg-violet-100'
-			case 'Withdraw':
-				return 'bg-blue-100'
-			case 'Transfer':
-				return 'bg-orange-100'
-			default:
-				return 'bg-gray-100'
-		}
-	}
-
-	const getAmountColor = (type: string) => {
-		switch (type) {
-			case 'Deposit':
-				return 'text-green-600'
-			case 'Withdraw':
-			case 'Transfer':
-				return 'text-red-600'
-			default:
-				return 'text-gray-600'
 		}
 	}
 
@@ -109,7 +69,7 @@ export default function TransactionHistory({
 							<div className="flex items-center justify-between">
 								<div className="flex items-center gap-4">
 									<div
-										className={`h-12 w-12 rounded-full flex items-center justify-center ${getTransactionBg(
+										className={`h-12 w-12 rounded-full flex items-center justify-center ${getTransactionBgClass(
 											transaction.type
 										)}`}
 									>
@@ -125,13 +85,13 @@ export default function TransactionHistory({
 											</div>
 										)}
 										<div className="text-xs text-slate-500 mt-1">
-											{formatDate(transaction.date)}
+											{formatTransactionDate(transaction.date)}
 										</div>
 									</div>
 								</div>
 								<div className="text-right">
 									<div
-										className={`text-xl font-bold ${getAmountColor(
+										className={`text-xl font-bold ${getTransactionAmountColor(
 											transaction.type
 										)}`}
 									>

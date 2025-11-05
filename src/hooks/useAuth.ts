@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import useAuthStore from '@/stores/authStore'
 import { loginWithUsernameAndPin } from '@/services/mockApi'
-import type { User } from '@/services/mockApi'
+import type { User } from '@/types'
 
 export function useAuth() {
 	const user = useAuthStore((s) => s.user)

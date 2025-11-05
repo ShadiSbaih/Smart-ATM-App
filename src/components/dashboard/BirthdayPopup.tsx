@@ -9,11 +9,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { Cake, Gift, PartyPopper, Sparkles } from 'lucide-react'
 import { isTodayBirthday, calculateAge } from '@/utils/dateUtils'
-import type { User } from '@/services/mockApi'
-
-interface BirthdayPopupProps {
-  user: User | null
-}
+import type { BirthdayPopupProps } from '@/types'
 
 export default function BirthdayPopup({ user }: BirthdayPopupProps) {
   const [isOpen, setIsOpen] = useState(false)
