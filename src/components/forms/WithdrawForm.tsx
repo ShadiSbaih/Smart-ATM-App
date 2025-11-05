@@ -38,7 +38,7 @@ export default function WithdrawForm({
 
 	const handleSubmit = async (
 		values: WithdrawFormValues,
-		{ resetForm }: any
+		{ resetForm }: { resetForm: () => void }
 	) => {
 		if (!user || values.amount > user.balance) {
 			toast.error('Insufficient Balance', {
@@ -55,7 +55,7 @@ export default function WithdrawForm({
 		}
 	}
 
-	const handleQuickAmount = (amount: number, setFieldValue: any) => {
+	const handleQuickAmount = (amount: number, setFieldValue: (field: string, value: number) => void) => {
 		const total = parseFloat(currentAmount || '0') + amount
 		setCurrentAmount(total.toString())
 		setFieldValue('amount', total)
