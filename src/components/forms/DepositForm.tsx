@@ -31,7 +31,7 @@ export default function DepositForm({ open, onOpenChange }: DepositFormProps) {
 
 	const handleSubmit = async (
 		values: DepositFormValues,
-		{ resetForm }: any
+		{ resetForm }: { resetForm: () => void }
 	) => {
 		const result = await deposit(values.amount, values.currency)
 		if (result) {
@@ -41,7 +41,7 @@ export default function DepositForm({ open, onOpenChange }: DepositFormProps) {
 		}
 	}
 
-	const handleQuickAmount = (amount: number, setFieldValue: any) => {
+	const handleQuickAmount = (amount: number, setFieldValue: (field: string, value: number) => void) => {
 		const total = parseFloat(currentAmount || '0') + amount
 		setCurrentAmount(total.toString())
 		setFieldValue('amount', total)
