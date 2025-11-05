@@ -85,7 +85,17 @@ export async function findUserByUsername(username: string) {
 }
 
 export async function loginWithUsernameAndPin(username: string, pin: string) {
-// username === 'Sarah' and pin === '1235'
+  // Try to get user from remote API first
+  const remoteUser = await fetchRemoteUser(username)
+  
+  if (remoteUser) {
+    // Verify pin (Note: In production, pin verification should be on backend)
+    if (remoteUser.pin && remoteUser.pin === pin) {
+      return remoteUser
+    }
+  }
+  
+  // Fallback to local users
   const local = LOCAL_USERS.find((u) => u.user_name === username)
   if (!local) throw new Error('User not found')
   if (local.pin !== pin) throw new Error('Invalid credentials')
@@ -99,5 +109,56 @@ export async function loginWithUsernameAndPin(username: string, pin: string) {
     balance: local.balance,
     birthday: local.birthday,
     transactions: local.transactions,
+  }
+}
+
+// Update user on remote API
+export async function updateUser(userId: number, userData: Partial<User>): Promise<User | null> {
+  try {
+    const res = await fetch(`${REMOTE_API}/${userId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userData),
+    })
+    
+    if (!res.ok) return null
+    const data = await res.json()
+    return data
+  } catch (error) {
+    console.error('Failed to update user:', error)
+    return null
+  }
+}
+
+// Add transaction and update balance
+export async function addTransaction(
+  userId: number,
+  transaction: Omit<Transaction, 'id'>,
+  newBalance: number
+): Promise<User | null> {
+  try {
+    // Get current user data
+    const userRes = await fetch(`${REMOTE_API}/${userId}`)
+    if (!userRes.ok) return null
+    const user: User = await userRes.json()
+    
+    // Add new transaction
+    const newTransaction: Transaction = {
+      ...transaction,
+      id: Date.now(),
+    }
+    
+    const updatedTransactions = [newTransaction, ...(user.transactions || [])]
+    
+    // Update user with new transaction and balance
+    return await updateUser(userId, {
+      balance: newBalance,
+      transactions: updatedTransactions,
+    })
+  } catch (error) {
+    console.error('Failed to add transaction:', error)
+    return null
   }
 }
