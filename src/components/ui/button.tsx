@@ -2,7 +2,7 @@ import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
-// loader بسيط بس بطايلويند
+
 const LoaderIcon = () => (
   <span className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-current border-r-transparent" />
 )
