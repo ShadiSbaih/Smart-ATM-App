@@ -2,6 +2,7 @@ import * as React from "react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { User, Key } from "lucide-react"
+const visaImg = new URL('../assets/visa.png', import.meta.url).href
 
 export interface LoginFormProps {
   onSubmit?: (data: { username: string; pin: string }) => void
@@ -79,11 +80,22 @@ export default function LoginForm({ onSubmit }: LoginFormProps) {
         </div>
 
        
-        <div className="hidden md:block md:w-1/2 bg-gradient-to-br from-purple-50 to-white relative">
-        
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-72 h-44 bg-white/60 blur-none rounded-xl transform rotate-[-10deg] shadow-lg border border-white/40 backdrop-filter backdrop-blur-md" />
-            <div className="w-72 h-44 bg-white/40 rounded-xl transform translate-x-10 rotate-6 shadow-md border border-white/30 backdrop-filter backdrop-blur-sm" />
+  <div className="md:w-1/2 w-full bg-transparent relative overflow-hidden flex items-center justify-center">
+          <div className="relative inset-0 flex items-center justify-center pointer-events-none">
+         
+            <img
+              src={visaImg}
+              alt="visa-back"
+              className="w-72 h-44 object-cover rounded-xl transform -rotate-6 translate-x-8 shadow-md border border-white/30 absolute"
+              loading="lazy"
+            />
+
+            <img
+              src={visaImg}
+              alt="visa-front"
+              className="w-80 h-48 object-cover rounded-xl transform rotate-6 shadow-lg border border-white/40 relative z-10"
+              loading="lazy"
+            />
           </div>
         </div>
       </div>
