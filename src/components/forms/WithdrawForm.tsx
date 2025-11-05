@@ -66,8 +66,8 @@ export default function WithdrawForm({
 			<DialogContent className="sm:max-w-md">
 				<DialogHeader>
 					<div className="flex items-center gap-3">
-						<div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/20">
-							<ArrowUpCircle className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+						<div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100">
+							<ArrowUpCircle className="h-5 w-5 text-blue-600" />
 						</div>
 						<div>
 							<DialogTitle className="text-xl">Withdraw</DialogTitle>
@@ -87,14 +87,14 @@ export default function WithdrawForm({
 						<Form className="space-y-6">
 							{/* Available Balance */}
 							<div className="space-y-2">
-								<label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+								<label className="text-sm font-medium text-gray-700">
 									Available Balance
 								</label>
-								<div className="rounded-lg bg-blue-50 dark:bg-blue-900/10 p-4">
-									<div className="text-sm text-blue-600 dark:text-blue-400">
+								<div className="rounded-lg bg-blue-50 p-4">
+									<div className="text-sm text-blue-600">
 										ILS
 									</div>
-									<div className="text-2xl font-bold text-blue-900 dark:text-blue-100">
+									<div className="text-2xl font-bold text-blue-900">
 										{user?.balance.toFixed(2) || '0.00'} ILS
 									</div>
 								</div>
@@ -104,7 +104,7 @@ export default function WithdrawForm({
 							<div className="space-y-2">
 								<label
 									htmlFor="amount"
-									className="text-sm font-medium text-gray-700 dark:text-gray-300"
+									className="text-sm font-medium text-gray-700"
 								>
 									Withdrawal Amount
 								</label>
@@ -133,7 +133,7 @@ export default function WithdrawForm({
 
 							{/* Quick Amounts */}
 							<div className="space-y-2">
-								<label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+								<label className="text-sm font-medium text-gray-700">
 									Quick Amounts
 								</label>
 								<div className="grid grid-cols-3 gap-2">
@@ -157,14 +157,14 @@ export default function WithdrawForm({
 
 							{/* Remaining Balance Preview */}
 							<div className="space-y-2">
-								<label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+								<label className="text-sm font-medium text-gray-700">
 									Remaining Balance
 								</label>
-								<div className="rounded-lg bg-blue-50 dark:bg-blue-900/10 p-4">
-									<div className="text-sm text-blue-600 dark:text-blue-400">
+								<div className="rounded-lg bg-blue-50 p-4">
+									<div className="text-sm text-blue-600">
 										After Withdrawal
 									</div>
-									<div className="text-2xl font-bold text-blue-900 dark:text-blue-100">
+									<div className="text-2xl font-bold text-blue-900">
 										{Math.max((user?.balance || 0) - (values.amount || 0), 0).toFixed(
 											2
 										)}{' '}

@@ -52,8 +52,8 @@ export default function DepositForm({ open, onOpenChange }: DepositFormProps) {
 			<DialogContent className="sm:max-w-md">
 				<DialogHeader>
 					<div className="flex items-center gap-3">
-						<div className="flex h-10 w-10 items-center justify-center rounded-full bg-violet-100 dark:bg-violet-900/20">
-							<ArrowDownCircle className="h-5 w-5 text-violet-600 dark:text-violet-400" />
+						<div className="flex h-10 w-10 items-center justify-center rounded-full bg-violet-100">
+							<ArrowDownCircle className="h-5 w-5 text-violet-600" />
 						</div>
 						<div>
 							<DialogTitle className="text-xl">Deposit</DialogTitle>
@@ -71,14 +71,14 @@ export default function DepositForm({ open, onOpenChange }: DepositFormProps) {
 						<Form className="space-y-6">
 							{/* Current Balance */}
 							<div className="space-y-2">
-								<label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+								<label className="text-sm font-medium text-gray-700">
 									Current Balance
 								</label>
-								<div className="rounded-lg bg-violet-50 dark:bg-violet-900/10 p-4">
-									<div className="text-sm text-violet-600 dark:text-violet-400">
+								<div className="rounded-lg bg-violet-50 p-4">
+									<div className="text-sm text-violet-600">
 										ILS
 									</div>
-									<div className="text-2xl font-bold text-violet-900 dark:text-violet-100">
+									<div className="text-2xl font-bold text-violet-900">
 										{user?.balance.toFixed(2) || '0.00'} ILS
 									</div>
 								</div>
@@ -88,7 +88,7 @@ export default function DepositForm({ open, onOpenChange }: DepositFormProps) {
 							<div className="space-y-2">
 								<label
 									htmlFor="amount"
-									className="text-sm font-medium text-gray-700 dark:text-gray-300"
+									className="text-sm font-medium text-gray-700"
 								>
 									Deposit Amount
 								</label>
@@ -117,7 +117,7 @@ export default function DepositForm({ open, onOpenChange }: DepositFormProps) {
 
 							{/* Quick Amounts */}
 							<div className="space-y-2">
-								<label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+								<label className="text-sm font-medium text-gray-700">
 									Quick Amounts
 								</label>
 								<div className="grid grid-cols-3 gap-2">
@@ -137,14 +137,14 @@ export default function DepositForm({ open, onOpenChange }: DepositFormProps) {
 
 							{/* New Balance Preview */}
 							<div className="space-y-2">
-								<label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+								<label className="text-sm font-medium text-gray-700">
 									New Balance
 								</label>
-								<div className="rounded-lg bg-violet-50 dark:bg-violet-900/10 p-4">
-									<div className="text-sm text-violet-600 dark:text-violet-400">
+								<div className="rounded-lg bg-violet-50 p-4">
+									<div className="text-sm text-violet-600">
 										After Deposit
 									</div>
-									<div className="text-2xl font-bold text-violet-900 dark:text-violet-100">
+									<div className="text-2xl font-bold text-violet-900">
 										{((user?.balance || 0) + (values.amount || 0)).toFixed(2)} ILS
 									</div>
 								</div>

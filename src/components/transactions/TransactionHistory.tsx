@@ -33,11 +33,11 @@ export default function TransactionHistory({
 	const getTransactionIcon = (type: string) => {
 		switch (type) {
 			case 'Deposit':
-				return <ArrowDownCircle className="h-6 w-6 text-violet-600 dark:text-violet-400" />
+				return <ArrowDownCircle className="h-6 w-6 text-violet-600" />
 			case 'Withdraw':
-				return <ArrowUpCircle className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+				return <ArrowUpCircle className="h-6 w-6 text-blue-600" />
 			case 'Transfer':
-				return <ArrowRightLeft className="h-6 w-6 text-orange-600 dark:text-orange-400" />
+				return <ArrowRightLeft className="h-6 w-6 text-orange-600" />
 			default:
 				return <ArrowRightLeft className="h-6 w-6 text-gray-600" />
 		}
@@ -46,23 +46,23 @@ export default function TransactionHistory({
 	const getTransactionBg = (type: string) => {
 		switch (type) {
 			case 'Deposit':
-				return 'bg-violet-100 dark:bg-violet-900/20'
+				return 'bg-violet-100'
 			case 'Withdraw':
-				return 'bg-blue-100 dark:bg-blue-900/20'
+				return 'bg-blue-100'
 			case 'Transfer':
-				return 'bg-orange-100 dark:bg-orange-900/20'
+				return 'bg-orange-100'
 			default:
-				return 'bg-gray-100 dark:bg-gray-900/20'
+				return 'bg-gray-100'
 		}
 	}
 
 	const getAmountColor = (type: string) => {
 		switch (type) {
 			case 'Deposit':
-				return 'text-green-600 dark:text-green-400'
+				return 'text-green-600'
 			case 'Withdraw':
 			case 'Transfer':
-				return 'text-red-600 dark:text-red-400'
+				return 'text-red-600'
 			default:
 				return 'text-gray-600'
 		}
