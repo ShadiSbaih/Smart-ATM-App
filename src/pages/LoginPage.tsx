@@ -1,15 +1,34 @@
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import LoginForm from '@/pages/LoginForm'
+import { useAuth } from '@/hooks/useAuth'
+import { loginSchema } from '@/schemas/loginSchema'
+import Alert from '@/components/ui/alert'
+import { toast } from 'sonner'
 
 export default function LoginPage() {
-  const handleSubmit = (data: { username: string; pin: string }) => {
-    // placeholder - integrate with auth logic later
-    console.log('login submit', data)
+  const navigate = useNavigate()
+  const { login } = useAuth()
+  const [error, setError] = useState<string | null>(null)
+
+  const handleSubmit = async (data: { username: string; pin: string }) => {
+    try {
+  setError(null)
+  await loginSchema.validate(data)
+  await login(data.username, data.pin)
+  navigate('/dashboard')
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err)
+      setError(msg)
+      toast.error(msg)
+    }
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-white to-purple-50">
+    <div className="min-h-screen flex items-center justify-center bg-white">
       <div className="w-full max-w-5xl px-6">
         <LoginForm onSubmit={handleSubmit} />
+        {error && <Alert title="Login failed" description={error} />}
       </div>
     </div>
   )
