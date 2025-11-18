@@ -29,7 +29,7 @@ export default function Sidebar() {
   const location = useLocation()
 
   return (
-    <aside className="w-64 bg-white border-r min-h-screen p-6">
+    <aside className="w-64 bg-white dark:bg-gray-900 text-gray-900 dark:text-white border-r min-h-screen p-6 pt-24 h-full">
       <nav className="space-y-2">
         {navigationItems.map((item) => {
           const isActive = location.pathname === item.path
@@ -43,7 +43,7 @@ export default function Sidebar() {
                 'flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200',
                 isActive
                   ? 'bg-indigo-100 text-indigo-700 font-semibold'
-                  : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+                  : 'text-slate-600 hover:bg-slate-50 dark:hover:text-gray-800 dark:text-white hover:text-slate-900'
               )}
             >
               <Icon className="w-5 h-5" />

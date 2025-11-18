@@ -59,7 +59,7 @@ export const SettingsPage = () => {
 
 	return (
 		<MainLayout>
-			<div className="max-w-4xl mx-auto space-y-6">
+			<div className="max-w-4xl mx-auto space-y-6 mb-16">
 				<div className="flex flex-col gap-2">
 					<h1 className="text-2xl sm:text-3xl font-bold">Settings</h1>
 					<p className="text-sm sm:text-base text-muted-foreground">
@@ -68,9 +68,9 @@ export const SettingsPage = () => {
 				</div>
 
 				{/* User Info Card */}
-				<Card>
+				<Card className='dark:bg-transparent'>
 					<CardHeader>
-						<CardTitle className="flex items-center gap-2">
+						<CardTitle className="flex items-center gap-2 dark:text-white">
 							<User className="h-5 w-5" />
 							Account Information
 						</CardTitle>
@@ -86,7 +86,7 @@ export const SettingsPage = () => {
 								/>
 							)}
 							<div>
-								<p className="font-semibold text-lg">
+								<p className="font-semibold text-lg dark:text-white">
 									{user?.first_name} {user?.last_name}
 								</p>
 								<p className="text-sm text-muted-foreground">@{user?.user_name}</p>
@@ -99,25 +99,25 @@ export const SettingsPage = () => {
 				</Card>
 
 				{/* Watchlist Info */}
-				<Card>
+				<Card className='dark:bg-transparent'>
 					<CardHeader>
-						<CardTitle className="flex items-center gap-2">
+						<CardTitle className="flex items-center gap-2 dark:text-white">
 							<Star className="h-5 w-5" />
 							Watchlist
 						</CardTitle>
 						<CardDescription>Your currency watchlist status</CardDescription>
 					</CardHeader>
 					<CardContent>
-						<p className="text-sm">
+						<p className="text-sm dark:text-white">
 							You have <span className="font-semibold">{watchlist.length}</span> {watchlist.length === 1 ? 'currency' : 'currencies'} in your watchlist
 						</p>
 					</CardContent>
 				</Card>
 
 				{/* Test Birthday Feature */}
-				<Card>
+				<Card className='dark:bg-transparent'>
 					<CardHeader>
-						<CardTitle>Test Features</CardTitle>
+						<CardTitle className="dark:text-white">Test Features</CardTitle>
 						<CardDescription>Test optional app features</CardDescription>
 					</CardHeader>
 					<CardContent>
@@ -128,7 +128,7 @@ export const SettingsPage = () => {
 				</Card>
 
 				{/* Danger Zone */}
-				<Card className="border-destructive/50">
+				<Card className="border-destructive/50 dark:bg-transparent">
 					<CardHeader>
 						<CardTitle className="flex items-center gap-2 text-destructive">
 							<AlertTriangle className="h-5 w-5" />
@@ -141,7 +141,7 @@ export const SettingsPage = () => {
 					<CardContent className="space-y-4">
 						<div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 							<div>
-								<p className="font-semibold">Reset Account</p>
+								<p className="font-semibold dark:text-white">Reset Account</p>
 								<p className="text-sm text-muted-foreground">
 									Clear all your data and log out
 								</p>
@@ -158,7 +158,7 @@ export const SettingsPage = () => {
 
 						<div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between pt-4 border-t">
 							<div>
-								<p className="font-semibold">Log Out</p>
+								<p className="font-semibold dark:text-white">Log Out</p>
 								<p className="text-sm text-muted-foreground">
 									Sign out of your account
 								</p>
@@ -179,11 +179,11 @@ export const SettingsPage = () => {
 				<Dialog open={showResetDialog} onOpenChange={setShowResetDialog}>
 					<DialogContent>
 						<DialogHeader>
-							<DialogTitle className="flex items-center gap-2">
-								<AlertTriangle className="h-5 w-5 text-destructive" />
+							<DialogTitle className="flex items-center gap-2 dark:text-gray-900">
+								<AlertTriangle className="h-5 w-5 text-destructive " />
 								Are you absolutely sure?
 							</DialogTitle>
-							<DialogDescription className="space-y-2">
+							<DialogDescription className="space-y-2 dark:text-gray-900">
 								<p>
 									This action cannot be undone. This will permanently delete your:
 								</p>
@@ -202,6 +202,7 @@ export const SettingsPage = () => {
 							<Button
 								variant="outline"
 								onClick={() => setShowResetDialog(false)}
+								className='dark:text-gray-900'
 							>
 								Cancel
 							</Button>
