@@ -1,10 +1,19 @@
-import { useState } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
-import useAuthStore from '@/stores/authStore'
-import { useAuth } from '@/hooks/useAuth'
-import { Button } from '@/components/ui/button'
-import { LogOut, Menu, X, Home, History, TrendingUp, Settings as SettingsIcon } from 'lucide-react'
-import { cn } from '@/lib/utils'
+import { useState, useContext } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import useAuthStore from '@/stores/authStore';
+import { useAuth } from '@/hooks/useAuth';
+import { Button } from '@/components/ui/button';
+import { ThemeContext } from '../../context/ThemeContext';
+import {
+  LogOut,
+  Menu,
+  X,
+  Home,
+  History,
+  TrendingUp,
+  Settings as SettingsIcon,
+} from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 const navigationItems = [
   {
@@ -27,26 +36,26 @@ const navigationItems = [
     path: '/settings',
     icon: SettingsIcon,
   },
-]
+];
 
 export default function Header() {
-  const user = useAuthStore((s) => s.user)
-  const { logout } = useAuth()
-  const navigate = useNavigate()
-  const location = useLocation()
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-
+  const user = useAuthStore((s) => s.user);
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { theme, toggleTheme } = useContext(ThemeContext);
   const handleLogout = () => {
-    logout()
-    navigate('/login')
-  }
+    logout();
+    navigate('/login');
+  };
 
   return (
     <>
-      <header className="bg-white border-b px-4 sm:px-6 lg:px-8 py-4 sticky top-0 z-40">
-        <div className="flex items-center justify-between">
+      <header className="fixed top-0 left-0 w-full z-50 h-16">
+        <div className="flex items-center justify-between p-4 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm shadow">
           {/* Left side - Logo and Menu button */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center space-x-3">
             {/* Mobile menu button */}
             <Button
               variant="ghost"
@@ -60,8 +69,8 @@ export default function Header() {
                 <Menu className="h-6 w-6" />
               )}
             </Button>
-
-            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-indigo-600 rounded-lg flex items-center justify-center">
+            
+            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-indigo-600 rounded-lg flex items-center justify-center ">
               <svg
                 className="w-6 h-6 sm:w-8 sm:h-8 text-white"
                 fill="none"
@@ -76,11 +85,20 @@ export default function Header() {
                 />
               </svg>
             </div>
-            <h1 className="text-lg sm:text-xl font-bold text-slate-900">Bank ATM</h1>
+            <h1 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
+              Bank ATM
+            </h1>
           </div>
 
           {/* Right side - User info */}
           <div className="flex items-center gap-2 sm:gap-4">
+            <Button
+              onClick={toggleTheme}
+              aria-label="Toggle theme"
+              className="px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 text-sm text-gray-800 dark:text-gray-100 hover:opacity-90 hover:text-gray-100 dark:hover:text-red-500 transition"
+            >
+              {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
+            </Button>
             {user && (
               <div className="flex items-center gap-2 sm:gap-3">
                 <div className="hidden sm:flex items-center gap-3">
@@ -99,7 +117,7 @@ export default function Header() {
                     </div>
                   )}
                   <div className="text-right hidden md:block">
-                    <p className="text-sm font-semibold text-slate-900">
+                    <p className="text-sm font-semibold text-slate-900 dark:text-white">
                       {user.first_name} {user.last_name}
                     </p>
                     <p className="text-xs text-slate-500">@{user.user_name}</p>
@@ -109,7 +127,7 @@ export default function Header() {
                   variant="ghost"
                   size="sm"
                   onClick={handleLogout}
-                  className="text-slate-600 hover:text-red-600"
+                  className="text-slate-600 dark:text-white hover:text-red-600 dark:hover:text-red-500"
                 >
                   <LogOut className="w-4 h-4" />
                   <span className="hidden sm:inline ml-2">Logout</span>
@@ -124,11 +142,11 @@ export default function Header() {
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-50 lg:hidden">
           {/* Backdrop */}
-          <div 
+          <div
             className="fixed inset-0 bg-black/50"
             onClick={() => setMobileMenuOpen(false)}
           />
-          
+
           {/* Menu Content */}
           <div className="fixed inset-y-0 left-0 w-64 bg-white shadow-xl">
             <div className="flex items-center justify-between p-4 border-b">
@@ -173,8 +191,8 @@ export default function Header() {
             {/* Navigation */}
             <nav className="p-4 space-y-2">
               {navigationItems.map((item) => {
-                const isActive = location.pathname === item.path
-                const Icon = item.icon
+                const isActive = location.pathname === item.path;
+                const Icon = item.icon;
 
                 return (
                   <Link
@@ -191,12 +209,12 @@ export default function Header() {
                     <Icon className="w-5 h-5" />
                     <span>{item.name}</span>
                   </Link>
-                )
+                );
               })}
             </nav>
           </div>
         </div>
       )}
     </>
-  )
+  );
 }

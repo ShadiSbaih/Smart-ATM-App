@@ -52,7 +52,7 @@ export default function DepositForm({ open, onOpenChange }: DepositFormProps) {
 							<ArrowDownCircle className="h-5 w-5 text-violet-600" />
 						</div>
 						<div>
-							<DialogTitle className="text-xl">Deposit</DialogTitle>
+							<DialogTitle className="text-xl dark:text-gray-900">Deposit</DialogTitle>
 							<DialogDescription>Add funds to your account</DialogDescription>
 						</div>
 					</div>
@@ -95,7 +95,7 @@ export default function DepositForm({ open, onOpenChange }: DepositFormProps) {
 										name="amount"
 										type="number"
 										placeholder="0.00"
-										className="pr-12 text-lg h-12"
+										className="pr-12 text-lg h-12 dark:text-gray-900"
 										value={currentAmount}
 										onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
 											setCurrentAmount(e.target.value)
@@ -116,7 +116,7 @@ export default function DepositForm({ open, onOpenChange }: DepositFormProps) {
 								<label className="text-sm font-medium text-gray-700">
 									Quick Amounts
 								</label>
-								<div className="grid grid-cols-3 gap-2">
+								<div className="grid grid-cols-3 gap-2 dark:text-gray-900">
 									{[100, 500, 1000].map((amount) => (
 										<Button
 											key={amount}

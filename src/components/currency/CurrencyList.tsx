@@ -26,9 +26,9 @@ export const CurrencyList = ({ currencies }: CurrencyListProps) => {
 				const inWatchlist = isInWatchlist(currency.code)
 				
 				return (
-					<Card key={currency.code} className="relative">
+					<Card key={currency.code} className="relative dark:bg-transparent">
 						<CardHeader className="pb-3">
-							<CardTitle className="flex items-center justify-between text-base sm:text-lg">
+							<CardTitle className="flex items-center justify-between text-base sm:text-lg dark:text-white">
 								<span>{currency.code}</span>
 								<Button
 									variant="ghost"
@@ -47,7 +47,7 @@ export const CurrencyList = ({ currencies }: CurrencyListProps) => {
 							</CardTitle>
 						</CardHeader>
 						<CardContent>
-							<div className="text-xl sm:text-2xl font-bold">₪{currency.rate.toFixed(2)}</div>
+							<div className="text-xl sm:text-2xl font-bold dark:text-white">₪{currency.rate.toFixed(2)}</div>
 							<p className="text-xs text-muted-foreground mt-1">
 								1 {currency.code} = {currency.rate.toFixed(2)} ILS
 							</p>

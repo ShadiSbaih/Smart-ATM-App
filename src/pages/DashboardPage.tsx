@@ -24,7 +24,7 @@ export default function DashboardPage() {
 			<BirthdayPopup user={user} />
 
 			{/* Dashboard Content */}
-			<div className="max-w-5xl mx-auto space-y-6 sm:space-y-8">
+			<div className="max-w-5xl mx-auto space-y-6 sm:space-y-8 ">
 				{/* Balance Card */}
 				<BalanceCard balance={user.balance} />
 

@@ -22,9 +22,9 @@ export default function HistoryPage() {
 
 	return (
 		<MainLayout>
-			<div className="max-w-5xl mx-auto space-y-6">
+			<div className="max-w-5xl mx-auto space-y-6 mb-16">
 				{/* Page Header */}
-				<div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+				<div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 dark:text-gray-900">
 					<Button
 						variant="outline"
 						size="sm"
@@ -35,7 +35,7 @@ export default function HistoryPage() {
 						Back
 					</Button>
 					<div>
-						<h1 className="text-2xl sm:text-3xl font-bold text-slate-900">
+						<h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">
 							Transaction History
 						</h1>
 						<p className="text-sm sm:text-base text-slate-600 mt-1">
@@ -45,7 +45,7 @@ export default function HistoryPage() {
 				</div>
 
 				{/* Transaction History Component */}
-				<TransactionHistory transactions={transactions} itemsPerPage={10} />
+				<TransactionHistory transactions={transactions} itemsPerPage={10}  />
 			</div>
 		</MainLayout>
 	)
