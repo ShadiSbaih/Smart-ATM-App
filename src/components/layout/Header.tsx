@@ -140,7 +140,7 @@ export default function Header() {
 
       {/* Mobile Menu Overlay */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden">
+        <div className="fixed inset-0 z-50 lg:hidden ">
           {/* Backdrop */}
           <div
             className="fixed inset-0 bg-black/50"
@@ -148,7 +148,7 @@ export default function Header() {
           />
 
           {/* Menu Content */}
-          <div className="fixed inset-y-0 left-0 w-64 bg-white shadow-xl">
+          <div className="fixed inset-y-0 left-0 w-64 bg-white shadow-xl dark:bg-gray-900">
             <div className="flex items-center justify-between p-4 border-b">
               <h2 className="text-lg font-semibold">Menu</h2>
               <Button
@@ -179,7 +179,7 @@ export default function Header() {
                     </div>
                   )}
                   <div>
-                    <p className="text-sm font-semibold text-slate-900">
+                    <p className="text-sm font-semibold text-slate-900 dark:text-white">
                       {user.first_name} {user.last_name}
                     </p>
                     <p className="text-xs text-slate-500">@{user.user_name}</p>
