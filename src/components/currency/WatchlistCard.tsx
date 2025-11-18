@@ -14,8 +14,8 @@ export const WatchlistCard = () => {
 
 	if (watchlist.length === 0) {
 		return (
-			<Card className="border-dashed">
-				<CardContent className="flex flex-col items-center justify-center py-8 sm:py-12">
+			<Card className="border-dashed dark:bg-transparent">
+				<CardContent className="flex flex-col items-center justify-center py-8 sm:py-12 dark:text-white">
 					<Star className="h-10 w-10 sm:h-12 sm:w-12 text-muted-foreground mb-4" />
 					<h3 className="text-base sm:text-lg font-semibold mb-2">No currencies in watchlist</h3>
 					<p className="text-sm text-muted-foreground text-center max-w-sm px-4">
@@ -45,7 +45,7 @@ export const WatchlistCard = () => {
 							</Button>
 						</CardTitle>
 					</CardHeader>
-					<CardContent>
+					<CardContent> 
 						<div className="text-xl sm:text-2xl font-bold">₪{currency.rate.toFixed(2)}</div>
 						<p className="text-xs text-muted-foreground mt-1">
 							1 {currency.code} = {currency.rate.toFixed(2)} ILS

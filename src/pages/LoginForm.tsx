@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { User, Key } from "lucide-react"
 import type { LoginFormProps } from "@/types"
+import Header from "@/components/layout/Header"
 
 const visaImg = new URL('../assets/visa.png', import.meta.url).href
 
@@ -16,23 +17,29 @@ export default function LoginForm({ onSubmit }: LoginFormProps) {
   }
 
   return (
-    <div className="min-h-[540px] w-full max-w-4xl mx-auto bg-transparent">
-      <div className="flex flex-col md:flex-row items-center bg-white rounded-lg overflow-hidden shadow-sm">
+    <>
+    <div className="w-full dark:bg-gray-900">
+    <Header />
+    
+
+    
+    <div className="min-h-[540px] w-full max-w-4xl mx-auto bg-transparent  mt-16">
+      <div className="flex flex-col md:flex-row items-center bg-white rounded-lg overflow-hidden shadow-sm dark:bg-gray-900">
        
-        <div className="w-full md:w-1/2 p-10">
+        <div className="w-full md:w-1/2 p-10 ">
           <header className="mb-8">
             <div className="flex items-center gap-3 mb-6">
-              <div className="h-8 w-8 bg-indigo-600/10 rounded flex items-center justify-center">
+              <div className="h-8 w-8 bg-indigo-600/10 dark:bg-white rounded flex items-center justify-center">
               
                 <svg width="18" height="12" viewBox="0 0 18 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <rect x="0" y="2" width="18" height="2" rx="1" fill="#5B21B6" />
                   <rect x="0" y="7" width="12" height="2" rx="1" fill="#5B21B6" />
                 </svg>
               </div>
-              <span className="text-sm font-medium text-slate-700">Bank ATM</span>
+              <span className="text-sm font-medium text-slate-700 dark:text-white">Bank ATM</span>
             </div>
 
-            <h1 className="text-4xl font-extrabold text-slate-900 leading-tight mb-2">
+            <h1 className="text-4xl font-extrabold text-slate-900 leading-tight mb-2 dark:text-white">
               Welcome back!
             </h1>
             <p className="text-sm text-slate-500">
@@ -98,5 +105,8 @@ export default function LoginForm({ onSubmit }: LoginFormProps) {
         </div>
       </div>
     </div>
+    </div>
+    </>
   )
+
 }

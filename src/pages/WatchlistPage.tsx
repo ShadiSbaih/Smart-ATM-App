@@ -21,7 +21,7 @@ export const WatchlistPage = () => {
 
 	return (
 		<MainLayout>
-			<div className="max-w-7xl mx-auto space-y-6">
+			<div className="max-w-7xl mx-auto space-y-6 ml-16 mr-16 mb-16">
 				<div className="flex flex-col gap-2">
 					<h1 className="text-2xl sm:text-3xl font-bold">Currency Exchange</h1>
 					<p className="text-sm sm:text-base text-muted-foreground">
@@ -30,15 +30,15 @@ export const WatchlistPage = () => {
 				</div>
 
 				<Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-					<TabsList className="grid w-full max-w-md grid-cols-2">
+					<TabsList className="grid w-full max-w-md grid-cols-2 dark:bg-transparent">
 						<TabsTrigger value="all">All Currencies</TabsTrigger>
 						<TabsTrigger value="watchlist">My Watchlist</TabsTrigger>
 					</TabsList>
 
 					<TabsContent value="all" className="mt-6">
-						<Card>
+						<Card className="dark:bg-transparent">
 							<CardHeader>
-								<CardTitle>Available Currencies</CardTitle>
+								<CardTitle className='dark:text-white'>Available Currencies</CardTitle>
 								<CardDescription>
 									Click the star icon to add currencies to your watchlist
 								</CardDescription>
@@ -50,7 +50,7 @@ export const WatchlistPage = () => {
 					</TabsContent>
 
 					<TabsContent value="watchlist" className="mt-6">
-						<Card>
+						<Card className="dark:bg-transparent dark:text-white">
 							<CardHeader>
 								<CardTitle>My Watchlist</CardTitle>
 								<CardDescription>

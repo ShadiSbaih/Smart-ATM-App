@@ -66,7 +66,7 @@ export default function WithdrawForm({
 							<ArrowUpCircle className="h-5 w-5 text-blue-600" />
 						</div>
 						<div>
-							<DialogTitle className="text-xl">Withdraw</DialogTitle>
+							<DialogTitle className="text-xl dark:text-gray-900">Withdraw</DialogTitle>
 							<DialogDescription>
 								Take funds from your account
 							</DialogDescription>
@@ -83,14 +83,14 @@ export default function WithdrawForm({
 						<Form className="space-y-6">
 							{/* Available Balance */}
 							<div className="space-y-2">
-								<label className="text-sm font-medium text-gray-700">
+								<label className="text-sm font-medium text-gray-700 ">
 									Available Balance
 								</label>
 								<div className="rounded-lg bg-blue-50 p-4">
 									<div className="text-sm text-blue-600">
 										ILS
 									</div>
-									<div className="text-2xl font-bold text-blue-900">
+									<div className="text-2xl font-bold text-blue-900 ">
 										{user?.balance.toFixed(2) || '0.00'} ILS
 									</div>
 								</div>
@@ -111,14 +111,14 @@ export default function WithdrawForm({
 										name="amount"
 										type="number"
 										placeholder="0.00"
-										className="pr-12 text-lg h-12"
+										className="pr-12 text-lg h-12 dark:text-gray-900"
 										value={currentAmount}
 										onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
 											setCurrentAmount(e.target.value)
 											setFieldValue('amount', parseFloat(e.target.value) || 0)
 										}}
 									/>
-									<div className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-gray-500">
+									<div className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-gray-500 ">
 										ILS
 									</div>
 								</div>
@@ -132,7 +132,7 @@ export default function WithdrawForm({
 								<label className="text-sm font-medium text-gray-700">
 									Quick Amounts
 								</label>
-								<div className="grid grid-cols-3 gap-2">
+								<div className="grid grid-cols-3 gap-2 dark:text-gray-900">
 									{[100, 500, 1000].map((amount) => (
 										<Button
 											key={amount}

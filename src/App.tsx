@@ -15,8 +15,8 @@ const queryClient = new QueryClient();
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <Router>
+      <QueryClientProvider client={queryClient}>
+        <Router>
           <Routes>
             <Route path="/login" element={<LoginPage />} />
             <Route path="/" element={<LoginPage />} />
@@ -72,8 +72,8 @@ function App() {
           </Routes>
           <Toaster />
         </Router>
-    </QueryClientProvider>
-  )
+      </QueryClientProvider>
+  );
 }
 
 export default App;
