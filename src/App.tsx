@@ -13,66 +13,36 @@ import WithdrawPage from './pages/WithdrawPage';
 
 const queryClient = new QueryClient();
 
+const protectedRoutes = [
+  { path: '/dashboard', element: <DashboardPage /> },
+  { path: '/deposit', element: <DepositPage /> },
+  { path: '/withdraw', element: <WithdrawPage /> },
+  { path: '/history', element: <HistoryPage /> },
+  { path: '/watchlist', element: <WatchlistPage /> },
+  { path: '/settings', element: <SettingsPage /> },
+];
+
 function App() {
   return (
-      <QueryClientProvider client={queryClient}>
-        <Router>
-          <Routes>
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/" element={<LoginPage />} />
+    <QueryClientProvider client={queryClient}>
+      <Router>
+        <Routes>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/" element={<LoginPage />} />
+
+          {protectedRoutes.map(({ path, element }) => (
             <Route
-              path="/dashboard"
-              element={
-                <ProtectedRoute>
-                  <DashboardPage />
-                </ProtectedRoute>
-              }
+              key={path}
+              path={path}
+              element={<ProtectedRoute>{element}</ProtectedRoute>}
             />
-            <Route
-              path="/deposit"
-              element={
-                <ProtectedRoute>
-                  <DepositPage />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/withdraw"
-              element={
-                <ProtectedRoute>
-                  <WithdrawPage />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/history"
-              element={
-                <ProtectedRoute>
-                  <HistoryPage />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/watchlist"
-              element={
-                <ProtectedRoute>
-                  <WatchlistPage />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/settings"
-              element={
-                <ProtectedRoute>
-                  <SettingsPage />
-                </ProtectedRoute>
-              }
-            />
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-          <Toaster />
-        </Router>
-      </QueryClientProvider>
+          ))}
+
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+        <Toaster />
+      </Router>
+    </QueryClientProvider>
   );
 }
 
