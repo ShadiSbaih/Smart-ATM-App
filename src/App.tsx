@@ -4,7 +4,7 @@ import { Toaster } from 'sonner';
 import LoginPage from './pages/LoginPage';
 import ProtectedRoute from './components/ProtectedRoute';
 
-import { protectedRoutes } from "./constants/protectedRoutes";
+import { protectedRoutes } from "./constants/ProtectedRoutes";
 import NotFoundPage from './pages/NotFoundPage';
 const queryClient = new QueryClient();
 
