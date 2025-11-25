@@ -3,24 +3,11 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'sonner';
 import LoginPage from './pages/LoginPage';
 import ProtectedRoute from './components/ProtectedRoute';
-import DashboardPage from './pages/DashboardPage';
-import HistoryPage from './pages/HistoryPage';
-import WatchlistPage from './pages/WatchlistPage';
-import SettingsPage from './pages/SettingsPage';
-import NotFoundPage from './pages/NotFoundPage';
-import DepositPage from './pages/DepositPage';
-import WithdrawPage from './pages/WithdrawPage';
 
+import { protectedRoutes } from "./constants/ProtectedRoutes";
+import NotFoundPage from './pages/NotFoundPage';
 const queryClient = new QueryClient();
 
-const protectedRoutes = [
-  { path: '/dashboard', element: <DashboardPage /> },
-  { path: '/deposit', element: <DepositPage /> },
-  { path: '/withdraw', element: <WithdrawPage /> },
-  { path: '/history', element: <HistoryPage /> },
-  { path: '/watchlist', element: <WatchlistPage /> },
-  { path: '/settings', element: <SettingsPage /> },
-];
 
 function App() {
   return (
