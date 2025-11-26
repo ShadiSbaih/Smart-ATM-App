@@ -25,7 +25,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white">
+    <div className="h-auto flex justify-center bg-white">
       <div className="w-full">
         <LoginForm onSubmit={handleSubmit} />
         {error && <Alert title="Login failed" description={error} />}

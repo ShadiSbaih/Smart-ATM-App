@@ -34,97 +34,127 @@ export default function LoginForm({ onSubmit }: LoginFormProps) {
 
   return (
     <>
-    <div className="w-full dark:bg-gray-900">
-    <Header />
-    <div className="min-h-[540px] w-full max-w-4xl mx-auto bg-transparent mt-16">
-      <div className="flex flex-col md:flex-row items-center bg-white rounded-lg overflow-hidden shadow-sm dark:bg-gray-900">
-        <div className="w-full md:w-1/2 p-10">
-          <header className="mb-8">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="h-8 w-8 bg-indigo-600/10 dark:bg-white rounded flex items-center justify-center">
+    <div className="min-h-screen w-full bg-gradient-to-br from-slate-50 via-purple-50/30 to-blue-50 dark:from-gray-900 dark:via-slate-900 dark:to-gray-900">
+      <Header />
+      
+      {/* Main Content Container */}
+      <div className="flex items-center justify-center min-h-[calc(100vh-5rem)] mt-20 px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-6xl mx-auto">
+          {/* Login Card with enhanced shadow and animation */}
+          <div className="mt-8 sm:mt-10 lg:mt-12 flex flex-col lg:flex-row items-stretch bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl rounded-3xl overflow-hidden shadow-2xl border border-purple-100/20 dark:border-purple-900/20 transition-all duration-300 hover:shadow-purple-200/50 dark:hover:shadow-purple-900/30">
+            
+            {/* Left Side - Form Section */}
+            <div className="w-full lg:w-1/2 p-8 sm:p-12 lg:p-16 flex flex-col justify-center">
+              {/* Header Section */}
+              <header className="mb-10">
               
-                <svg width="18" height="12" viewBox="0 0 18 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="0" y="2" width="18" height="2" rx="1" fill="#5B21B6" />
-                  <rect x="0" y="7" width="12" height="2" rx="1" fill="#5B21B6" />
-                </svg>
+
+                {/* Welcome Text */}
+                <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white leading-tight mb-3 tracking-tight">
+                  Welcome back!
+                </h1>
+                <p className="text-base text-slate-600 dark:text-slate-400 leading-relaxed">
+                  Easily manage your balance, deposits, withdrawals, and transactions.
+                </p>
+              </header>
+
+              {/* Login Form */}
+              <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Username Field */}
+                <div className="space-y-2">
+                  <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                    Username
+                  </label>
+                  <Input
+                    placeholder="Enter your username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    leftIcon={<User size={18} />}
+                    className="h-12 rounded-2xl border-2 border-purple-200/50 dark:border-purple-800/50 bg-white dark:bg-gray-800 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-purple-500 dark:focus:border-purple-500 focus:ring-4 focus:ring-purple-100 dark:focus:ring-purple-900/30 transition-all duration-200"
+                  />
+                </div>
+
+                {/* PIN Field */}
+                <div className="space-y-2">
+                  <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                    PIN
+                  </label>
+                  <Input
+                    type="password"
+                    placeholder="Enter your PIN"
+                    value={pin}
+                    onChange={(e) => setPin(e.target.value)}
+                    leftIcon={<Key size={18} />}
+                    togglePassword
+                    className="h-12 rounded-2xl border-2 border-purple-200/50 dark:border-purple-800/50 bg-white dark:bg-gray-800 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-purple-500 dark:focus:border-purple-500 focus:ring-4 focus:ring-purple-100 dark:focus:ring-purple-900/30 transition-all duration-200"
+                  />
+                </div>
+
+                {/* Error Message */}
+                {error && (
+                  <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative text-sm font-medium">
+                    {error}
+                  </div>
+                )}
+
+                {/* Submit Button */}
+                <div className="pt-2">
+                  <Button
+                    type="submit"
+                    className="w-full h-12 rounded-2xl px-8 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 dark:from-violet-500 dark:to-purple-500 dark:hover:from-violet-600 dark:hover:to-purple-600 text-white text-base font-bold shadow-lg shadow-purple-500/30 hover:shadow-xl hover:shadow-purple-500/40 transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
+                    size="lg"
+                  >
+                    Login
+                  </Button>
+                </div>
+              </form>
+
+              {/* Additional Info/Links (Optional) */}
+              <div className="mt-8 text-center">
+                <p className="text-sm text-slate-500 dark:text-slate-400">
+                  Secure login powered by Bank ATM
+                </p>
               </div>
-              <span className="text-sm font-medium text-slate-700 dark:text-white">Bank ATM</span>
             </div>
 
-            <h1 className="text-4xl font-extrabold text-slate-900 leading-tight mb-2 dark:text-white">
-              Welcome back!
-            </h1>
-            <p className="text-sm text-slate-500">
-              Easily manage your balance, deposits, withdrawals, and transactions.
+            {/* Right Side - Visual Section */}
+            <div className="w-full lg:w-1/2 bg-gradient-to-br from-indigo-500/10 via-purple-500/10 to-pink-500/10 dark:from-indigo-900/20 dark:via-purple-900/20 dark:to-pink-900/20 relative overflow-hidden flex items-center justify-center p-8 sm:p-12 lg:p-16 min-h-[400px] lg:min-h-0">
+              {/* Background Decorative Elements */}
+              <div className="absolute inset-0 overflow-hidden">
+                <div className="absolute -top-24 -right-24 w-96 h-96 bg-purple-400/20 dark:bg-purple-600/10 rounded-full blur-3xl"></div>
+                <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-indigo-400/20 dark:bg-indigo-600/10 rounded-full blur-3xl"></div>
+              </div>
+
+              {/* Card Images */}
+              <div className="relative w-full max-w-md h-full flex items-center justify-center">
+                {/* Back Card */}
+                <img
+                  src={visaImg}
+                  alt="visa-back"
+                  className="w-64 sm:w-72 lg:w-80 h-auto object-contain rounded-2xl transform -rotate-6 translate-x-6 sm:translate-x-8 shadow-2xl border border-white/40 dark:border-white/20 absolute transition-transform duration-500 hover:rotate-[-8deg] hover:translate-x-10"
+                  loading="lazy"
+                />
+
+                {/* Front Card */}
+                <img
+                  src={visaImg}
+                  alt="visa-front"
+                  className="w-72 sm:w-80 lg:w-96 h-auto object-contain rounded-2xl transform rotate-6 shadow-2xl border border-white/60 dark:border-white/30 relative z-10 transition-transform duration-500 hover:rotate-[8deg] hover:scale-105"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Footer Text */}
+          <div className="text-center mt-8">
+            <p className="text-sm text-slate-500 dark:text-slate-400">
+              © 2025 Bank ATM. All rights reserved. | Secure & Reliable Banking
             </p>
-          </header>
-
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">Username</label>
-              <Input
-                placeholder="Enter your username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                leftIcon={<User size={18} />}
-                className="rounded-full border-[1.5px] border-purple-200 bg-transparent placeholder:text-slate-300"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">PIN</label>
-              <Input
-                type="password"
-                placeholder="Enter your PIN"
-                value={pin}
-                onChange={(e) => setPin(e.target.value)}
-                leftIcon={<Key size={18} />}
-                togglePassword
-                className="rounded-full border-[1.5px] border-purple-200 bg-transparent placeholder:text-slate-300"
-              />
-            </div>
-
-            {error && ( 
-              <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative text-sm font-medium">
-                {error}
-              </div>
-            )}
-
-            <div>
-              <Button
-                type="submit"
-                className="w-full rounded-full px-8 py-3 bg-gradient-to-r from-violet-500 to-purple-600 text-white text-base font-semibold shadow-md"
-                size="lg"
-              >
-                Login
-              </Button>
-            </div>
-          </form>
-        </div>
-
-       
-  <div className="md:w-1/2 w-full bg-transparent relative overflow-hidden flex items-center justify-center">
-          <div className="relative inset-0 flex items-center justify-center pointer-events-none">
-         
-            <img
-              src={visaImg}
-              alt="visa-back"
-              className="w-72 h-44 object-cover rounded-xl transform -rotate-6 translate-x-8 shadow-md border border-white/30 absolute"
-              loading="lazy"
-            />
-
-            <img
-              src={visaImg}
-              alt="visa-front"
-              className="w-80 h-48 object-cover rounded-xl transform rotate-6 shadow-lg border border-white/40 relative z-10"
-              loading="lazy"
-            />
           </div>
         </div>
       </div>
     </div>
-    </div>
     </>
   )
-
 }
