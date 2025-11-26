@@ -16,10 +16,16 @@ export default function LoginForm({ onSubmit }: LoginFormProps) {
     e.preventDefault()
     setError("") 
 
+    
+    if (username !== "sarah-abuzeneh" || pin !== "Sa1234") {
+      setError("Invalid username or PIN. Please try again.") 
+      return
+    }
+
     try {
-      const result = await onSubmit?.({ username, pin }) as { success?: boolean } | undefined 
+      const result = await onSubmit?.({ username, pin }) as { success?: boolean } | undefined
       if (!result || !result.success) {
-        setError("Invalid username or PIN. Please try again.") 
+        setError("Invalid username or PIN. Please try again.")
       }
     } catch {
       setError("An unexpected error occurred. Please try again.") 
@@ -79,7 +85,9 @@ export default function LoginForm({ onSubmit }: LoginFormProps) {
             </div>
 
             {error && ( 
-              <div className="text-red-500 text-sm font-medium">{error}</div>
+              <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative text-sm font-medium">
+                {error}
+              </div>
             )}
 
             <div>
