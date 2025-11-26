@@ -10,23 +10,29 @@ const visaImg = new URL('../assets/visa.png', import.meta.url).href
 export default function LoginForm({ onSubmit }: LoginFormProps) {
   const [username, setUsername] = React.useState("")
   const [pin, setPin] = React.useState("")
+  const [error, setError] = React.useState("") 
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    onSubmit?.({ username, pin })
+    setError("") 
+
+    try {
+      const result = await onSubmit?.({ username, pin }) as { success?: boolean } | undefined 
+      if (!result || !result.success) {
+        setError("Invalid username or PIN. Please try again.") 
+      }
+    } catch {
+      setError("An unexpected error occurred. Please try again.") 
+    }
   }
 
   return (
     <>
     <div className="w-full dark:bg-gray-900">
     <Header />
-    
-
-    
-    <div className="min-h-[540px] w-full max-w-4xl mx-auto bg-transparent  mt-16">
+    <div className="min-h-[540px] w-full max-w-4xl mx-auto bg-transparent mt-16">
       <div className="flex flex-col md:flex-row items-center bg-white rounded-lg overflow-hidden shadow-sm dark:bg-gray-900">
-       
-        <div className="w-full md:w-1/2 p-10 ">
+        <div className="w-full md:w-1/2 p-10">
           <header className="mb-8">
             <div className="flex items-center gap-3 mb-6">
               <div className="h-8 w-8 bg-indigo-600/10 dark:bg-white rounded flex items-center justify-center">
@@ -71,6 +77,10 @@ export default function LoginForm({ onSubmit }: LoginFormProps) {
                 className="rounded-full border-[1.5px] border-purple-200 bg-transparent placeholder:text-slate-300"
               />
             </div>
+
+            {error && ( 
+              <div className="text-red-500 text-sm font-medium">{error}</div>
+            )}
 
             <div>
               <Button
