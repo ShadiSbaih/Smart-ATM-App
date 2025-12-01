@@ -21,7 +21,11 @@ export const useAuthStore = create<AuthState>()(
 			setUser: (u) => set({ user: u, error: null }),
 			setLoading: (v) => set({ loading: v }),
 			setError: (e) => set({ error: e }),
-			clear: () => set({ user: null, loading: false, error: null }),
+			clear: () => {
+				set({ user: null, loading: false, error: null })
+				// Clear localStorage
+				localStorage.removeItem('smart-atm-auth')
+			},
 		}),
 		{
 			name: 'smart-atm-auth',
