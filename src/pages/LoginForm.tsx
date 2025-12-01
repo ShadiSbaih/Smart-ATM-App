@@ -1,7 +1,7 @@
 import * as React from "react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { User, Key } from "lucide-react"
+import { User, Key, Loader2 } from "lucide-react"
 import type { LoginFormProps } from "@/types"
 import Header from "@/components/layout/Header"
 
@@ -10,15 +10,20 @@ const visaImg = new URL('../assets/visa.png', import.meta.url).href
 export default function LoginForm({ onSubmit }: LoginFormProps) {
   const [username, setUsername] = React.useState("")
   const [pin, setPin] = React.useState("")
-  const [error, setError] = React.useState("") 
+  const [error, setError] = React.useState("")
+  const [isLoading, setIsLoading] = React.useState(false) 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError("") 
+    setIsLoading(true)
 
+    // Simulate network delay
+    await new Promise(resolve => setTimeout(resolve, 800))
     
     if (username !== "sarah-abuzeneh" || pin !== "Sa1234") {
       setError("Invalid username or PIN. Please try again.") 
+      setIsLoading(false)
       return
     }
 
@@ -29,6 +34,8 @@ export default function LoginForm({ onSubmit }: LoginFormProps) {
       }
     } catch {
       setError("An unexpected error occurred. Please try again.") 
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -101,10 +108,18 @@ export default function LoginForm({ onSubmit }: LoginFormProps) {
                 <div className="pt-2">
                   <Button
                     type="submit"
-                    className="w-full h-12 rounded-2xl px-8 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 dark:from-violet-500 dark:to-purple-500 dark:hover:from-violet-600 dark:hover:to-purple-600 text-white text-base font-bold shadow-lg shadow-purple-500/30 hover:shadow-xl hover:shadow-purple-500/40 transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
+                    disabled={isLoading}
+                    className="w-full h-12 rounded-2xl px-8 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 dark:from-violet-500 dark:to-purple-500 dark:hover:from-violet-600 dark:hover:to-purple-600 text-white text-base font-bold shadow-lg shadow-purple-500/30 hover:shadow-xl hover:shadow-purple-500/40 transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100"
                     size="lg"
                   >
-                    Login
+                    {isLoading ? (
+                      <>
+                        <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                        Logging in...
+                      </>
+                    ) : (
+                      'Login'
+                    )}
                   </Button>
                 </div>
               </form>

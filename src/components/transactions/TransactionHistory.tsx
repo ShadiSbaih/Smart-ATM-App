@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { ArrowDownCircle, ArrowUpCircle, ArrowRightLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import type { Transaction, TransactionHistoryProps } from '@/types';
@@ -14,10 +14,13 @@ export default function TransactionHistory({
 }: TransactionHistoryProps) {
   const [currentPage, setCurrentPage] = useState(1);
 
-  const totalPages = Math.ceil(transactions.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const currentTransactions = transactions.slice(startIndex, endIndex);
+  const { totalPages, currentTransactions } = useMemo(() => {
+    const pages = Math.ceil(transactions.length / itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const current = transactions.slice(startIndex, endIndex);
+    return { totalPages: pages, currentTransactions: current };
+  }, [transactions, currentPage, itemsPerPage]);
 
   const getTransactionIcon = (type: string) => {
     switch (type) {
@@ -64,11 +67,11 @@ export default function TransactionHistory({
         </div>
 
         {/* Transactions List */}
-        <div className="divide-y divide-slate-200">
+        <div className="divide-y divide-slate-200 dark:divide-slate-700">
           {currentTransactions.map((transaction: Transaction) => (
             <div
               key={transaction.id}
-              className="p-6 hover:bg-black transition-colors"
+              className="p-6 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4 ">

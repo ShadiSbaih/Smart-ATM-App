@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import MainLayout from '@/components/layout/MainLayout'
 import { CurrencyList } from '@/components/currency/CurrencyList'
 import { WatchlistCard } from '@/components/currency/WatchlistCard'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import type { Currency } from '@/types'
+import { Loader2 } from 'lucide-react'
 
 // Mock currency data as specified in requirements
 const MOCK_CURRENCIES: Currency[] = [
@@ -18,6 +19,15 @@ const MOCK_CURRENCIES: Currency[] = [
 
 export const WatchlistPage = () => {
 	const [activeTab, setActiveTab] = useState('all')
+	const [isLoading, setIsLoading] = useState(true)
+
+	useEffect(() => {
+		// Simulate loading currencies
+		const timer = setTimeout(() => {
+			setIsLoading(false)
+		}, 800)
+		return () => clearTimeout(timer)
+	}, [])
 
 	return (
 		<MainLayout>
@@ -44,7 +54,13 @@ export const WatchlistPage = () => {
 								</CardDescription>
 							</CardHeader>
 							<CardContent>
-								<CurrencyList currencies={MOCK_CURRENCIES} />
+								{isLoading ? (
+									<div className="flex justify-center items-center py-12">
+										<Loader2 className="h-8 w-8 animate-spin text-primary" />
+									</div>
+								) : (
+									<CurrencyList currencies={MOCK_CURRENCIES} />
+								)}
 							</CardContent>
 						</Card>
 					</TabsContent>
@@ -58,7 +74,13 @@ export const WatchlistPage = () => {
 								</CardDescription>
 							</CardHeader>
 							<CardContent>
-								<WatchlistCard />
+								{isLoading ? (
+									<div className="flex justify-center items-center py-12">
+										<Loader2 className="h-8 w-8 animate-spin text-primary" />
+									</div>
+								) : (
+									<WatchlistCard />
+								)}
 							</CardContent>
 						</Card>
 					</TabsContent>

@@ -6,6 +6,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 
 import { protectedRoutes } from "./constants/ProtectedRoutes";
 import NotFoundPage from './pages/NotFoundPage';
+
 const queryClient = new QueryClient();
 
 
@@ -27,7 +28,17 @@ function App() {
 
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
-        <Toaster />
+        <Toaster 
+          position="top-right"
+          toastOptions={{
+            classNames: {
+              error: 'bg-red-600 text-white border-red-700',
+              success: 'bg-green-600 text-white border-green-700',
+              warning: 'bg-yellow-600 text-white border-yellow-700',
+              info: 'bg-blue-600 text-white border-blue-700',
+            },
+          }}
+        />
       </Router>
     </QueryClientProvider>
   );

@@ -14,7 +14,7 @@ import {
 import { useAuthStore } from '@/stores/authStore'
 import { useWatchlistStore } from '@/stores/watchlistStore'
 import { toast } from 'sonner'
-import { AlertTriangle, Trash2, LogOut, User, Star } from 'lucide-react'
+import { AlertTriangle, Trash2, LogOut, User, Star, Loader2 } from 'lucide-react'
 import confetti from 'canvas-confetti'
 
 export const SettingsPage = () => {
@@ -22,12 +22,20 @@ export const SettingsPage = () => {
 	const { user, clear: clearAuth } = useAuthStore()
 	const { clearWatchlist,watchlist } = useWatchlistStore()
 	const [showResetDialog, setShowResetDialog] = useState(false)
+	const [isResetting, setIsResetting] = useState(false)
 
 	const handleResetAccount = async () => {
+		setIsResetting(true)
 		try {
+			// Simulate async operation
+			await new Promise(resolve => setTimeout(resolve, 800))
+			
 			// Clear authentication and watchlist
 			clearAuth()
 			clearWatchlist()
+			
+			// Clear all localStorage items
+			localStorage.clear()
 
 			toast.success('Account reset successfully')
 			setShowResetDialog(false)
@@ -37,6 +45,8 @@ export const SettingsPage = () => {
 		} catch (error) {
 			toast.error('Failed to reset account')
 			console.error('Reset error:', error)
+		} finally {
+			setIsResetting(false)
 		}
 	}
 
@@ -203,14 +213,23 @@ export const SettingsPage = () => {
 								variant="outline"
 								onClick={() => setShowResetDialog(false)}
 								className='dark:text-gray-900'
+								disabled={isResetting}
 							>
 								Cancel
 							</Button>
 							<Button
 								variant="destructive"
 								onClick={handleResetAccount}
+								disabled={isResetting}
 							>
-								Yes, Reset My Account
+								{isResetting ? (
+									<>
+										<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+										Resetting...
+									</>
+								) : (
+									'Yes, Reset My Account'
+								)}
 							</Button>
 						</DialogFooter>
 					</DialogContent>

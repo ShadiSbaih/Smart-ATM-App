@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { Star } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -6,7 +7,7 @@ import { toast } from 'sonner'
 import type { CurrencyListProps, Currency } from '@/types'
 
 export const CurrencyList = ({ currencies }: CurrencyListProps) => {
-	const { addToWatchlist, removeFromWatchlist, isInWatchlist } = useWatchlistStore()
+	const { addToWatchlist, removeFromWatchlist, isInWatchlist, watchlist } = useWatchlistStore()
 
 	const handleToggleWatchlist = (currency: Currency) => {
 		const inWatchlist = isInWatchlist(currency.code)
@@ -20,10 +21,18 @@ export const CurrencyList = ({ currencies }: CurrencyListProps) => {
 		}
 	}
 
+	// Memoize watchlist status for better performance
+	const watchlistStatus = useMemo(() => {
+		return currencies.reduce((acc, currency) => {
+			acc[currency.code] = isInWatchlist(currency.code);
+			return acc;
+		}, {} as Record<string, boolean>);
+	}, [currencies, watchlist]);
+
 	return (
 		<div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
 			{currencies.map((currency) => {
-				const inWatchlist = isInWatchlist(currency.code)
+				const inWatchlist = watchlistStatus[currency.code]
 				
 				return (
 					<Card key={currency.code} className="relative dark:bg-transparent">

@@ -20,9 +20,6 @@ export const useTransactions = () => {
 		setIsLoading(true)
 		setError(null)
 
-		// Save original user state for rollback
-		const originalUser = user
-
 		try {
 			// Validate based on transaction type
 			if (input.type === 'Withdraw' && input.amount > user.balance) {
@@ -40,24 +37,6 @@ export const useTransactions = () => {
 			} else if (input.type === 'Withdraw' || input.type === 'Transfer') {
 				newBalance -= input.amount
 			}
-
-			// Create new transaction for optimistic update
-			const newTransaction: Transaction = {
-				id: Date.now(),
-				type: input.type,
-				amount: input.amount,
-				currency: input.currency || 'ILS',
-				date: new Date().toISOString(),
-				target_user: input.target_user,
-			}
-
-			// Optimistic update
-			const optimisticUser = {
-				...user,
-				balance: newBalance,
-				transactions: [newTransaction, ...(user.transactions || [])],
-			}
-			setUser(optimisticUser)
 
 			// Call API to save transaction
 			const updatedUser = await addTransactionAPI(
@@ -86,9 +65,6 @@ export const useTransactions = () => {
 				err instanceof Error ? err.message : 'Transaction failed'
 			setError(errorMessage)
 			toast.error('Transaction Failed', { description: errorMessage })
-
-			// Revert optimistic update on error
-			setUser(originalUser)
 			return false
 		}
 	}
