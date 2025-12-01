@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/dialog'
 import { useAuthStore } from '@/stores/authStore'
 import { useWatchlistStore } from '@/stores/watchlistStore'
+import { resetUserAccount } from '@/services/mockApi'
 import { toast } from 'sonner'
 import { AlertTriangle, Trash2, LogOut, User, Star, Loader2 } from 'lucide-react'
 import confetti from 'canvas-confetti'
@@ -27,23 +28,43 @@ export const SettingsPage = () => {
 	const handleResetAccount = async () => {
 		setIsResetting(true)
 		try {
-			// Simulate async operation
-			await new Promise(resolve => setTimeout(resolve, 800))
+			if (!user?.id) {
+				throw new Error('User not found')
+			}
+
+			// Save theme before clearing
+			const savedTheme = localStorage.getItem('theme')
 			
-			// Clear authentication and watchlist
+			// Reset account on mock API (balance to 0, clear transactions)
+			const resetResult = await resetUserAccount(user.id)
+			
+			if (!resetResult) {
+				throw new Error('Failed to reset account on server')
+			}
+			
+			// Clear authentication and watchlist stores
 			clearAuth()
 			clearWatchlist()
 			
 			// Clear all localStorage items
 			localStorage.clear()
+			
+			// Restore theme
+			if (savedTheme) {
+				localStorage.setItem('theme', savedTheme)
+			}
 
-			toast.success('Account reset successfully')
+			toast.success('Account reset successfully', {
+				description: 'Balance set to 0 and all transactions cleared'
+			})
 			setShowResetDialog(false)
 
 			// Redirect to login page
 			navigate('/login')
 		} catch (error) {
-			toast.error('Failed to reset account')
+			toast.error('Failed to reset account', {
+				description: error instanceof Error ? error.message : 'An error occurred'
+			})
 			console.error('Reset error:', error)
 		} finally {
 			setIsResetting(false)
