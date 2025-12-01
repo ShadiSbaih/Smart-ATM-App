@@ -38,9 +38,8 @@ export default function DepositForm({ open, onOpenChange }: DepositFormProps) {
 	}
 
 	const handleQuickAmount = (amount: number, setFieldValue: (field: string, value: number) => void) => {
-		const total = parseFloat(currentAmount || '0') + amount
-		setCurrentAmount(total.toString())
-		setFieldValue('amount', total)
+		setFieldValue('amount', amount)
+		setCurrentAmount(amount.toString())
 	}
 
 	return (
