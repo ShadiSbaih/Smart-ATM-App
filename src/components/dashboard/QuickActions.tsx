@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { ArrowUp, ArrowDown } from 'lucide-react'
 import DepositForm from '@/components/forms/DepositForm'
 import WithdrawForm from '@/components/forms/WithdrawForm'
@@ -7,7 +7,7 @@ export default function QuickActions() {
 	const [depositOpen, setDepositOpen] = useState(false)
 	const [withdrawOpen, setWithdrawOpen] = useState(false)
 
-	const actions = [
+	const actions = useMemo(() => [
 		{
 			title: 'Withdraw',
 			description: 'Take money from your account',
@@ -26,7 +26,7 @@ export default function QuickActions() {
 			iconColor: 'text-purple-600',
 			borderColor: 'border-purple-200',
 		},
-	]
+	], [])
 
 	return (
 		<>
