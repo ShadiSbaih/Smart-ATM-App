@@ -143,3 +143,19 @@ export async function addTransaction(
     return null
   }
 }
+
+// Reset user account (balance to zero, clear transactions)
+export async function resetUserAccount(userId: number): Promise<User | null> {
+  try {
+    // Reset balance to 0 and clear all transactions
+    const updatedUser = await updateUser(userId, {
+      balance: 0,
+      transactions: [],
+    })
+    
+    return updatedUser
+  } catch (error) {
+    console.error('Failed to reset user account:', error)
+    return null
+  }
+}
